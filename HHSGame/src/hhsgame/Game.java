@@ -20,4 +20,8 @@ public class Game {
         return TILE_HEIGHT*ROWS;
     }
     
+    public static void main(String[] args) {
+        
+    }
+    
 }
