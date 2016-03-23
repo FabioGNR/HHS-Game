@@ -10,5 +10,8 @@ package hhsgame;
  * @author Fabio
  */
 public class Game {
-    
+    public static void main()
+    {
+        
+    }
 }
