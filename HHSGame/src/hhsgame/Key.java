@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hhsgame;
 
-/**
- *
- * @author Fabio
- */
-public class Key {
+public class Key extends BoardComponent{
+    
+    private final int keyCode;
+    
+    public Key(BoardCoordinate pos, int keyCode) {
+        super(pos);
+        this.keyCode = keyCode;
+    }
+
+    public int getKeyCode() {
+        return keyCode;
+    }
     
 }

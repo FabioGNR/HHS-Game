@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hhsgame;
 
-/**
- *
- * @author Fabio
- */
-public class Tile {
+public abstract class Tile extends BoardComponent{
+    
+    public Tile(BoardCoordinate pos) {
+        super(pos);
+    }
+    
+    public abstract boolean isPassable();
     
 }

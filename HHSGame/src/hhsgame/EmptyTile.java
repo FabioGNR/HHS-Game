@@ -1,14 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hhsgame;
 
-/**
- *
- * @author Fabio
- */
-public class EmptyTile {
+public class EmptyTile extends Tile{
+    
+    private Key key;
+    
+    public EmptyTile(BoardCoordinate pos) {
+        super(pos);
+    }
+    
+    public EmptyTile(BoardCoordinate pos, Key key) {
+        super(pos);
+        this.key = key;
+    }
+    
+    public Key getKey() {
+        return this.key;
+    }
+    
+    public boolean hasKey() {
+        return this.key == null;
+    }
+    
+    public boolean isPassable() {
+        return true;
+    }
     
 }

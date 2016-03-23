@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hhsgame;
 
-/**
- *
- * @author Fabio
- */
-public class GameBoard {
+public class GameBoard extends Game{
+    
+    private boolean paused = false;
+    
+    private Tile[][] levelLayout;
+    private int currentLevel;
+    
+    public void togglePause() {
+        paused = !paused;
+    }
+    
+    public void loadLevel(int level) {
+        
+    }
+    
+    public void reset() {
+        loadLevel(currentLevel);
+    }
+    
     
 }
