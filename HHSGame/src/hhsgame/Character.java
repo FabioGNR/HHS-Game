@@ -1,8 +1,11 @@
 package hhsgame;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import static hhsgame.Game.*;
 
 public class Character{
+    private static final Image image = ImageReader.getImage("character.png");
     
     private Key key;
     private Tile currentTile;
@@ -33,6 +36,10 @@ public class Character{
     
     public void paint(Graphics g)
     {
-        
+        if(image == null)
+            return;
+        int x = currentTile.getPos().getScreenX();
+        int y = currentTile.getPos().getScreenY();
+        g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
 }

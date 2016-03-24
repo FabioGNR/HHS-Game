@@ -6,12 +6,15 @@
 package hhsgame;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import static hhsgame.Game.*;
 
 /**
  *
  * @author Fabio
  */
 public class KeyTile extends Tile {
+    private static final Image image = ImageReader.getImage("keyTile.png");
 
     public KeyTile(BoardCoordinate pos) {
         super(pos);
@@ -24,7 +27,10 @@ public class KeyTile extends Tile {
 
     @Override
     public void paint(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(image == null)
+            return;
+        int x = pos.getScreenX();
+        int y = pos.getScreenY();
+        g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
-    
 }
