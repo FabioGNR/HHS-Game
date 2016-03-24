@@ -9,6 +9,6 @@ public abstract class Tile extends BoardComponent{
     }
     
     public abstract boolean isPassable();
-    public abstract void draw(Graphics g);
+    public abstract void paint(Graphics g);
     
 }

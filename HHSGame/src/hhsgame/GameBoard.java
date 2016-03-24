@@ -9,9 +9,11 @@ import javax.swing.JComponent;
 public class GameBoard extends JComponent{
     
     private boolean paused = false;
+    private boolean levelLoaded = false;
     
     private Map<BoardCoordinate, Tile> levelLayout;
     private int currentLevel;
+    private Character character;
     
     public GameBoard() {
         setFocusable(true);
@@ -21,17 +23,25 @@ public class GameBoard extends JComponent{
         paused = !paused;
     }
     
-    public void loadLevel(int level) {
+    public void loadLevel(LevelReader reader, int level) {
         
+        levelLoaded = true;
     }
     
-    public void reset() {
-        loadLevel(currentLevel);
+    public void reset(LevelReader reader) {
+        loadLevel(reader, currentLevel);
     }
     
     @Override
     public void paintComponent(Graphics g)
     {
-        
+        if(!levelLoaded) return;
+        // paint all tiles
+        for(Tile tile : levelLayout.values())
+        {
+            tile.paint(g);
+        }
+        // paint player on top
+        character.paint(g);
     }
 }

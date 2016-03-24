@@ -1,11 +1,14 @@
 package hhsgame;
 
-public class Character extends BoardComponent{
+import java.awt.Graphics;
+
+public class Character{
     
     private Key key;
+    private Tile currentTile;
     
-    public Character(BoardCoordinate pos) {
-        super(pos);
+    public Character(Tile startTile) {
+        currentTile = startTile;
     }
     
     public Key getKey() {
@@ -19,5 +22,17 @@ public class Character extends BoardComponent{
     public void setKey(Key key) {
         this.key = key;
     }
+
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
+    public void setCurrentTile(Tile currentTile) {
+        this.currentTile = currentTile;
+    }
     
+    public void paint(Graphics g)
+    {
+        
+    }
 }

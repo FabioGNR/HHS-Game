@@ -132,7 +132,7 @@ public class Game{
             if(action == ButtonAction.Pause) {
                 board.togglePause();
             } else if(action == ButtonAction.Reset) {
-                board.reset();
+                board.reset(reader);
             } else if(action == ButtonAction.Menu) {
                 containerLayout.show(containerPanel, MENU_CARD_ID);
             }
@@ -150,7 +150,7 @@ public class Game{
             int level = dropDown.getSelectedIndex();
             containerLayout.show(containerPanel, GAME_CARD_ID);
             board.grabFocus();
-            board.loadLevel(level);
+            board.loadLevel(reader, level);
         }
     }
 }
