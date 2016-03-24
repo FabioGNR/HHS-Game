@@ -18,7 +18,7 @@ public class EmptyTile extends Tile{
     }
     
     public boolean hasKey() {
-        return this.key == null;
+        return this.key != null;
     }
     
     public boolean isPassable() {

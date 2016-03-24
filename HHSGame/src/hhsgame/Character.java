@@ -13,7 +13,7 @@ public class Character extends BoardComponent{
     }
     
     public boolean hasKey() {
-        return this.key == null;
+        return this.key != null;
     }
 
     public void setKey(Key key) {
