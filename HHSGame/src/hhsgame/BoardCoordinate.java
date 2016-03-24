@@ -31,6 +31,19 @@ public class BoardCoordinate{
         return y;
     }
     
+    public BoardCoordinate getLeft() {
+        return new BoardCoordinate(x-1, y);
+    }
+    public BoardCoordinate getRight(){
+        return new BoardCoordinate(x+1, y);    
+    }
+    public BoardCoordinate getTop(){
+        return new BoardCoordinate(x, y-1);
+    }
+    public BoardCoordinate getBottom(){
+        return new BoardCoordinate(x,y+1);
+    }
+    
         
     public int getScreenX() {
         return TILE_WIDTH*x;

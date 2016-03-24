@@ -3,6 +3,8 @@ package hhsgame;
 // $TODO change extending Game to static import of variables
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Map;
 import javax.swing.JComponent;
 
@@ -43,5 +45,37 @@ public class GameBoard extends JComponent{
         }
         // paint player on top
         character.paint(g);
+    }
+    
+    private class ControlListener implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {
+            Tile nextTile;
+            if(e.getKeyCode() == e.VK_LEFT) {
+                nextTile = levelLayout.get(character.getCurrentTile().getPos().getLeft());
+            } else if(e.getKeyCode() == e.VK_RIGHT) {
+                nextTile = levelLayout.get(character.getCurrentTile().getPos().getRight());
+            } else if(e.getKeyCode() == e.VK_UP) {
+                nextTile = levelLayout.get(character.getCurrentTile().getPos().getTop());
+            } else if(e.getKeyCode() == e.VK_DOWN) {
+                nextTile = levelLayout.get(character.getCurrentTile().getPos().getBottom());
+            } else {
+                return;
+            }
+            if(nextTile.isPassable()) {
+                character.setCurrentTile(nextTile);
+            }
+            if(nextTile instanceof KeyTile) {
+                KeyTile nextKeyTile = (KeyTile) nextTile;
+                character.setKey(nextKeyTile.getKey());
+                levelLayout.put(nextKeyTile.getPos(), new EmptyTile(nextKeyTile.getPos()));
+            }
+        }
+        @Override
+        public void keyReleased(KeyEvent e) {}
+    
     }
 }
