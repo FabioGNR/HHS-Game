@@ -16,9 +16,11 @@ public class GameBoard extends JComponent{
     private Map<BoardCoordinate, Tile> levelLayout;
     private int currentLevel;
     private Character character;
+    private PopUpBox winBox;
     
     public GameBoard() {
         setFocusable(true);
+        this.addKeyListener(new ControlListener());
     }
     
     public void togglePause() {
@@ -56,17 +58,29 @@ public class GameBoard extends JComponent{
             Tile nextTile;
             if(e.getKeyCode() == e.VK_LEFT) {
                 nextTile = levelLayout.get(character.getCurrentTile().getPos().getLeft());
+                System.out.println("left pressed");
             } else if(e.getKeyCode() == e.VK_RIGHT) {
                 nextTile = levelLayout.get(character.getCurrentTile().getPos().getRight());
+                System.out.println("right pressed");
             } else if(e.getKeyCode() == e.VK_UP) {
                 nextTile = levelLayout.get(character.getCurrentTile().getPos().getTop());
+                System.out.println("top pressed");
             } else if(e.getKeyCode() == e.VK_DOWN) {
                 nextTile = levelLayout.get(character.getCurrentTile().getPos().getBottom());
+                System.out.println("bottom pressed");
             } else {
                 return;
             }
             if(nextTile.isPassable()) {
                 character.setCurrentTile(nextTile);
+                if(nextTile instanceof Finish) {
+                    winBox = new PopUpBox("SIE GEWANN!!");
+                }
+            } else if(nextTile instanceof Barricade) {
+                Barricade barr = (Barricade) nextTile;
+                if(character.hasKey() && barr.getKeyCode() == character.getKey().getKeyCode()) {
+                    levelLayout.put(barr.getPos(), new EmptyTile(barr.getPos()));
+                }
             }
             if(nextTile instanceof KeyTile) {
                 KeyTile nextKeyTile = (KeyTile) nextTile;
