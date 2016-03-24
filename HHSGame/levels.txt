@@ -1,0 +1,10 @@
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,B 3,B 3,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,W  ,E  ,K 3,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,B 4,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,K 4,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,F  

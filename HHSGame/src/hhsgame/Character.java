@@ -1,10 +1,10 @@
 package hhsgame;
 
-public class Player extends BoardComponent{
+public class Character extends BoardComponent{
     
     private Key key;
     
-    public Player(BoardCoordinate pos) {
+    public Character(BoardCoordinate pos) {
         super(pos);
     }
     
