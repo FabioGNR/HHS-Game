@@ -1,5 +1,7 @@
 package hhsgame;
 
+import java.awt.Graphics;
+
 public abstract class Tile extends BoardComponent{
     
     public Tile(BoardCoordinate pos) {
@@ -7,5 +9,6 @@ public abstract class Tile extends BoardComponent{
     }
     
     public abstract boolean isPassable();
+    public abstract void draw(Graphics g);
     
 }

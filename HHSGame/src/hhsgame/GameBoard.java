@@ -1,11 +1,16 @@
 package hhsgame;
 
 // $TODO change extending Game to static import of variables
-public class GameBoard extends Game{
+
+import java.awt.Graphics;
+import java.util.Map;
+import javax.swing.JComponent;
+
+public class GameBoard extends JComponent{
     
     private boolean paused = false;
     
-    private Tile[][] levelLayout;
+    private Map<BoardCoordinate, Tile> levelLayout;
     private int currentLevel;
     
     public GameBoard() {
@@ -24,5 +29,9 @@ public class GameBoard extends Game{
         loadLevel(currentLevel);
     }
     
-    
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        
+    }
 }

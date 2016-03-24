@@ -5,45 +5,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game extends JComponent{
-    protected static int ROWS = 10;
-    protected static int COLS = 10;
-    protected static int TILE_HEIGHT = 80;
-    protected static int TILE_WIDTH = 80;
-    private static int MENU_MARGIN = 200;
+public class Game{
+    // public static variables
+    public final static int ROWS = 10;
+    public final static int COLS = 10;
+    public final static int TILE_HEIGHT = 80;
+    public final static int TILE_WIDTH = 80;
     
-    protected static int RIGHT_BOUND = TILE_WIDTH*COLS;
-    protected static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
+    // private interface variables
+    private final static int MENU_MARGIN = 200;
     
-    private static int MENU_PADDING = 10;
-    private static int BUTTON_HEIGHT = 60;
+    protected final static int RIGHT_BOUND = TILE_WIDTH*COLS;
+    protected final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
     
-    private static int MAIN_MENU_WIDTH = 300;
-    private static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
+    private final static int MENU_PADDING = 10;
+    private final static int BUTTON_HEIGHT = 60;
     
-    private static int FRAME_WIDTH = COLS*TILE_WIDTH + MENU_MARGIN+2*MENU_PADDING;
-    private static int FRAME_HEIGHT = ROWS*TILE_HEIGHT;
+    private final static int MAIN_MENU_WIDTH = 300;
+    private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
+    
+    private final static int FRAME_WIDTH = COLS*TILE_WIDTH + MENU_MARGIN+2*MENU_PADDING;
+    private final static int FRAME_HEIGHT = ROWS*TILE_HEIGHT;
+    
+    private final static String GAME_CARD_ID = "GameCard";
+    private final static String MENU_CARD_ID = "MenuCard";
+    //
     
     private static GameBoard board;
-    
     private static JFrame frame;
+    private static CardLayout containerLayout;
     private static JPanel gamePanel, menuPanel, containerPanel;
 
     private static LevelReader reader = new LevelReader("levels.txt");
     
     enum ButtonAction{
         Reset, Pause, Menu
-    }
-    
-    protected static int getScreenX(BoardCoordinate coord) {
-        return TILE_WIDTH*coord.getX();
-    }
-    protected static int getScreenY(BoardCoordinate coord) {
-        return TILE_HEIGHT*coord.getY();
     }
     
     public static void main(String[] args) {
@@ -55,26 +54,24 @@ public class Game extends JComponent{
         
         createGamePanel();
         createMenuPanel();
-
-        containerPanel = new JPanel(new CardLayout());
-        
-        frame.add(menuPanel);
+        containerLayout = new CardLayout();
+        containerPanel = new JPanel(containerLayout);
+        containerPanel.add(menuPanel, MENU_CARD_ID);
+        containerPanel.add(gamePanel, GAME_CARD_ID);
+        frame.add(containerPanel);
         frame.setVisible(true);
     }
     
     private static void createMenuPanel() {
-        menuPanel = new JPanel();
-        
+        menuPanel = new JPanel();     
         menuPanel.setLayout(null);
         
         JButton startButton = new JButton();
         startButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         startButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING);
         startButton.setText("STARTE DIE SPIELE!");
-        
-        
-        Integer[] levelList = new Integer[reader.getLevelAmount()];
-        
+               
+        Integer[] levelList = new Integer[reader.getLevelAmount()];     
         for(int i = 1; i <= levelList.length; i++) {
             levelList[i-1] = i;
         }
@@ -124,8 +121,7 @@ public class Game extends JComponent{
     }
     
     // Maybe not static? Was necessary for the ButtonSetup.
-    public static class ButtonClickListener implements ActionListener{
-
+    static class ButtonClickListener implements ActionListener{
         ButtonAction action;
         public ButtonClickListener(ButtonAction action){
             this.action = action;
@@ -138,15 +134,12 @@ public class Game extends JComponent{
             } else if(action == ButtonAction.Reset) {
                 board.reset();
             } else if(action == ButtonAction.Menu) {
-                frame.removeAll();
-                frame.add(menuPanel);
+                containerLayout.show(containerPanel, MENU_CARD_ID);
             }
-        }
-        
+        }      
     }
     
-    public static class StartButtonListener implements ActionListener {
-        
+    static class StartButtonListener implements ActionListener {      
         JComboBox dropDown;
         public StartButtonListener(JComboBox dropDown) {
             this.dropDown = dropDown;
@@ -155,11 +148,9 @@ public class Game extends JComponent{
         @Override
         public void actionPerformed(ActionEvent e) {
             int level = dropDown.getSelectedIndex();
-//            frame.removeAll();
-            frame.add(gamePanel);
+            containerLayout.show(containerPanel, GAME_CARD_ID);
             board.grabFocus();
             board.loadLevel(level);
-            frame.repaint();
         }
     }
 }

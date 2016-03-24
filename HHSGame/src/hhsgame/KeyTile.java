@@ -1,13 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hhsgame;
 
 import java.awt.Graphics;
 
-public class EmptyTile extends Tile{
-    
-    public EmptyTile(BoardCoordinate pos) {
+/**
+ *
+ * @author Fabio
+ */
+public class KeyTile extends Tile {
+
+    public KeyTile(BoardCoordinate pos) {
         super(pos);
     }
-    
+
+    @Override
     public boolean isPassable() {
         return true;
     }

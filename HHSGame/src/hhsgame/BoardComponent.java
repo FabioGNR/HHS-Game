@@ -1,6 +1,6 @@
 package hhsgame;
 
-public abstract class BoardComponent extends Game{
+public abstract class BoardComponent{
     
     protected BoardCoordinate pos;
 

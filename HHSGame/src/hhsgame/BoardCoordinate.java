@@ -1,6 +1,7 @@
 package hhsgame;
+import static hhsgame.Game.*;
 
-public class BoardCoordinate extends Game{
+public class BoardCoordinate{
     private final int x;
     private final int y;
     
@@ -30,4 +31,11 @@ public class BoardCoordinate extends Game{
         return y;
     }
     
+        
+    public int getScreenX() {
+        return TILE_WIDTH*x;
+    }
+    public int getScreenY() {
+        return TILE_HEIGHT*y;
+    }
 }
