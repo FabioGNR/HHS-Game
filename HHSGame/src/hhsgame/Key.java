@@ -1,11 +1,10 @@
 package hhsgame;
 
-public class Key extends BoardComponent{
+public class Key{
     
     private final int keyCode;
     
-    public Key(BoardCoordinate pos, int keyCode) {
-        super(pos);
+    public Key(int keyCode) {
         this.keyCode = keyCode;
     }
 

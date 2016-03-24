@@ -26,7 +26,7 @@ public class GameBoard extends JComponent{
     }
     
     public void loadLevel(LevelReader reader, int level) {
-        
+        levelLayout = reader.getLevelTiles(level);
         levelLoaded = true;
     }
     

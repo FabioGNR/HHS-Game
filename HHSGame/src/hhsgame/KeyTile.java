@@ -1,14 +1,18 @@
 package hhsgame;
 
+import static hhsgame.Game.*;
 import java.awt.Graphics;
+import java.awt.Image;
 
 public class KeyTile extends Tile {
-
+    private static final Image image = ImageReader.getImage("keyTile.png");
     private final Key key;
+    private final String keyCodeLabel;
     
     public KeyTile(BoardCoordinate pos, Key key) {
         super(pos);
         this.key = key;
+        keyCodeLabel = Integer.toString(key.getKeyCode());
     }
 
     @Override
@@ -18,7 +22,14 @@ public class KeyTile extends Tile {
 
     @Override
     public void paint(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(image == null)
+            return;
+        int x = pos.getScreenX();
+        int y = pos.getScreenY();
+        g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+        int labelX = x + (TILE_WIDTH-50)/2;
+        int labelY = y + (TILE_HEIGHT-20)/2;
+        g.drawString(keyCodeLabel, labelX, labelY);
     }
     
     public Key getKey() {
