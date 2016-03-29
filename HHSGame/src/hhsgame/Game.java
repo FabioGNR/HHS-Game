@@ -1,6 +1,7 @@
 package hhsgame;
 
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ public class Game{
     public final static int COLS = 10;
     public final static int TILE_HEIGHT = 80;
     public final static int TILE_WIDTH = 80;
+    public final static Font LABEL_FONT = new Font("Calibri", Font.BOLD, 22);
     
     // private interface variables
     private final static int MENU_MARGIN = 200;
@@ -22,14 +24,14 @@ public class Game{
     protected final static int RIGHT_BOUND = TILE_WIDTH*COLS;
     protected final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
     
-    private final static int MENU_PADDING = 10;
-    private final static int BUTTON_HEIGHT = 60;
+    public final static int MENU_PADDING = 10;
+    public final static int BUTTON_HEIGHT = 60;
     
     private final static int MAIN_MENU_WIDTH = 300;
     private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
     
     private final static int FRAME_WIDTH = COLS*TILE_WIDTH + MENU_MARGIN+2*MENU_PADDING;
-    private final static int FRAME_HEIGHT = ROWS*TILE_HEIGHT;
+    private final static int FRAME_HEIGHT = ROWS*TILE_HEIGHT+39;
     
     private final static String GAME_CARD_ID = "GameCard";
     private final static String MENU_CARD_ID = "MenuCard";
@@ -48,7 +50,7 @@ public class Game{
     }
     
     public static void main(String[] args) {
-        board = new GameBoard();
+        board = new GameBoard(FRAME_WIDTH, FRAME_HEIGHT);
         frame = new JFrame();
         frame.setTitle("Key Game");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -61,6 +63,7 @@ public class Game{
         containerPanel.add(menuPanel, MENU_CARD_ID);
         containerPanel.add(gamePanel, GAME_CARD_ID);
         frame.add(containerPanel);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     
@@ -74,6 +77,7 @@ public class Game{
         startButton.setText("STARTE DIE SPIELE!");
                
         Integer[] levelList = new Integer[reader.getLevels().size()];     
+        System.out.println("levelCount: "+reader.getLevels().size());
         for(int i = 1; i <= levelList.length; i++) {
             levelList[i-1] = i;
         }
@@ -153,6 +157,7 @@ public class Game{
             containerLayout.show(containerPanel, GAME_CARD_ID);
             board.grabFocus();
             board.loadLevel(reader, level);
+            board.repaint();
         }
     }
 }

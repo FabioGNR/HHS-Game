@@ -3,9 +3,10 @@ package hhsgame;
 import java.awt.Graphics;
 import java.awt.Image;
 import static hhsgame.Game.*;
+import java.awt.Color;
 
 public class Character{
-    private static final Image image = ImageReader.getImage("character.jpg");
+    private static final Image image = ImageReader.getImage("character.png");
     
     // The key the player is currently holding, can be null
     private Key key;
@@ -43,10 +44,19 @@ public class Character{
         int x = currentTile.getPos().getScreenX();
         int y = currentTile.getPos().getScreenY();
         // scale image uniformly to tile size
-        float widthF = image.getWidth(null)/TILE_WIDTH;
-        float heightF = image.getHeight(null)/TILE_HEIGHT;
+        float widthF = (float)(TILE_WIDTH-10)/(float)image.getWidth(null);
+        float heightF = (float)(TILE_HEIGHT-10)/(float)image.getHeight(null);
         float factor = Math.min(widthF, heightF);
         int width = (int) (image.getWidth(null)*factor), height = (int) (image.getHeight(null)*factor);
-        g.drawImage(image, x, y, width, height, null);
+        g.drawImage(image, x, y+5, width, height, null);
+        if(hasKey()) {
+            g.setColor(Color.WHITE);
+            g.setFont(LABEL_FONT);
+            int labelX = x + TILE_WIDTH-25;
+            int labelY = y + (TILE_HEIGHT-20)/2;
+            g.drawString(key.getKeyLabel(), labelX, labelY);
+            g.setColor(Color.BLACK);
+        }
+            
     }
 }

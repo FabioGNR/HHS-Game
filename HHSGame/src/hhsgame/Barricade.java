@@ -3,6 +3,7 @@ package hhsgame;
 import java.awt.Graphics;
 import java.awt.Image;
 import static hhsgame.Game.*;
+import java.awt.Color;
 
 public class Barricade extends Tile{
     private static final Image image = ImageReader.getImage("barricade.png");
@@ -34,7 +35,10 @@ public class Barricade extends Tile{
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
         int labelX = x + (TILE_WIDTH-50)/2;
         int labelY = y + (TILE_HEIGHT-20)/2;
+        g.setColor(Color.WHITE);
+        g.setFont(LABEL_FONT);
         g.drawString(keyCodeLabel, labelX, labelY);
+        g.setColor(Color.BLACK);
     }
 
     @Override

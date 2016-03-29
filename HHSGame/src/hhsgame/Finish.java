@@ -33,6 +33,5 @@ public class Finish extends Tile{
 
     @Override
     public void onCharacterEnter(Character character) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

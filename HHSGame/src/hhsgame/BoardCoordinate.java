@@ -1,7 +1,7 @@
 package hhsgame;
 import static hhsgame.Game.*;
 
-public class BoardCoordinate{
+public class BoardCoordinate implements Comparable{
     private final int x;
     private final int y;
     
@@ -51,5 +51,13 @@ public class BoardCoordinate{
     }
     public int getScreenY() {
         return TILE_HEIGHT*y;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int myValue = y*COLS+x;
+        BoardCoordinate other = (BoardCoordinate)o;
+        int otherValue = other.getY()*COLS+other.getX();
+        return myValue-otherValue;
     }
 }

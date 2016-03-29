@@ -17,6 +17,7 @@ public class LevelReader {
     public LevelReader(String fileName) {
 
         this.fileName = fileName;
+        readLevels();
     }
     
     private void openFile()
@@ -30,7 +31,7 @@ public class LevelReader {
         }
     }
     
-    public void readLevels() {
+    private void readLevels() {
         openFile();
         String[][] lines = new String[ROWS][COLS];
         int counter = 0;
@@ -38,12 +39,13 @@ public class LevelReader {
         try {
             
             while((line = in.readLine()) != null) {
+                lines[counter] = line.split(",");
+                counter++;
                 if(counter == 10) {
                     counter = 0;
                     levels.add(new Level(lines));
                     lines = new String[ROWS][COLS];
                 }
-                lines[counter] = line.split(",");
             }
         } catch(IOException e) {
             e.printStackTrace();
