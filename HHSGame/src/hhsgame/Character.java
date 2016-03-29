@@ -7,7 +7,9 @@ import static hhsgame.Game.*;
 public class Character{
     private static final Image image = ImageReader.getImage("character.png");
     
+    // The key the player is currently holding, can be null
     private Key key;
+    // The Tile the player is currently on, this will never be null
     private Tile currentTile;
     
     public Character(Tile startTile) {

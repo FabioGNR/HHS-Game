@@ -41,6 +41,7 @@ public class Game{
 
     private static LevelReader reader = new LevelReader("levels.txt");
     
+    // An enum to limit the actions a button can have because Strings are ugly for that
     enum ButtonAction{
         Reset, Pause, Menu
     }
