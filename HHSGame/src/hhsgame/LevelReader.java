@@ -1,10 +1,9 @@
 package hhsgame;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
 import static hhsgame.Game.*;
+
 
 public class LevelReader {
 
@@ -22,23 +21,19 @@ public class LevelReader {
     private void openFile()
     {
         try {
-            if(in != null) {
-                in.close();
-            }
             in = new BufferedReader(new FileReader(fileName));
         } catch(Exception e) {
             in = null;
+            System.out.println("File was not found.");
+            System.exit(0);
         }
-        
-        
-        
     }
     
     private int readLevelAmount() {
         openFile();
-        if(in == null) {
-            return 0;
-        }
+//        if(in == null) {
+//            return 0;
+//        }
         int lineCount = 0;
         try {
             while(in.readLine() != null) {
@@ -47,7 +42,7 @@ public class LevelReader {
         } catch (Exception e) {
             return 0;
         }
-        return lineCount/10;
+        return (lineCount/10)+1;
     }
     
     public int getLevelAmount() {

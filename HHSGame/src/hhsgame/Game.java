@@ -3,10 +3,7 @@ package hhsgame;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Game{
     // public static variables
@@ -27,8 +24,8 @@ public class Game{
     private final static int MAIN_MENU_WIDTH = 300;
     private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
     
-    private final static int FRAME_WIDTH = COLS*TILE_WIDTH + MENU_MARGIN+2*MENU_PADDING;
-    private final static int FRAME_HEIGHT = ROWS*TILE_HEIGHT;
+    private final static int FRAME_WIDTH = RIGHT_BOUND + MENU_MARGIN+2*MENU_PADDING;
+    private final static int FRAME_HEIGHT = BOTTOM_BOUND;
     
     private final static String GAME_CARD_ID = "GameCard";
     private final static String MENU_CARD_ID = "MenuCard";
@@ -36,20 +33,19 @@ public class Game{
     
     private static GameBoard board;
     private static JFrame frame;
-    private static CardLayout containerLayout;
+    private static CardLayout containerLayout;//what does this do?
     private static JPanel gamePanel, menuPanel, containerPanel;
 
     private static LevelReader reader = new LevelReader("levels.txt");
     
-    enum ButtonAction{
-        Reset, Pause, Menu
-    }
+    enum ButtonAction{ Reset, Pause, Menu }
     
     public static void main(String[] args) {
         board = new GameBoard();
         frame = new JFrame();
         frame.setTitle("Key Game");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         createGamePanel();
@@ -77,13 +73,13 @@ public class Game{
         }
         
         JComboBox levelSelect = new JComboBox(levelList);
-        if(levelList.length == 0) {
-            startButton.setEnabled(false);
-            startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
-            levelSelect.setEnabled(false);
-        } else {
-            levelSelect.setSelectedIndex(0);
-        }
+//        if(levelList.length == 0) {
+//            startButton.setEnabled(false);
+//            startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
+//            levelSelect.setEnabled(false);
+//        } else {
+//            levelSelect.setSelectedIndex(0);
+//        }
         levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
         
@@ -94,7 +90,7 @@ public class Game{
     
     private static void createGamePanel() {
         gamePanel = new JPanel();
-        gamePanel.setLayout(null);
+        gamePanel.setLayout(null);//position gamePanel vertically
         gamePanel.add(board);
         
         gamePanel.add(buttonSetup(RIGHT_BOUND+MENU_PADDING, 

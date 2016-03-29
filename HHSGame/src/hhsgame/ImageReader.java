@@ -27,6 +27,7 @@ public class ImageReader {
         {
             return null;
         }
+        
         Image image;
         try {
             image = ImageIO.read(file);
