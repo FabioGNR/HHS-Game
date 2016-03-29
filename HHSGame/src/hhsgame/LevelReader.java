@@ -42,7 +42,7 @@ public class LevelReader {
         } catch (Exception e) {
             return 0;
         }
-        return (lineCount/10)+1;
+        return lineCount/10;
     }
     
     public int getLevelAmount() {
