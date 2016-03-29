@@ -73,7 +73,7 @@ public class Game{
         startButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING);
         startButton.setText("STARTE DIE SPIELE!");
                
-        Integer[] levelList = new Integer[reader.getLevelAmount()];     
+        Integer[] levelList = new Integer[reader.getLevels().size()];     
         for(int i = 1; i <= levelList.length; i++) {
             levelList[i-1] = i;
         }
