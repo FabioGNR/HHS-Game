@@ -5,7 +5,7 @@ import java.awt.Image;
 import static hhsgame.Game.*;
 
 public class Character{
-    private static final Image image = ImageReader.getImage("character.png");
+    private static final Image image = ImageReader.getImage("character.jpg");
     
     // The key the player is currently holding, can be null
     private Key key;

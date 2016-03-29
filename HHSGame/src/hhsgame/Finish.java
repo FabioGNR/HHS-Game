@@ -3,7 +3,6 @@ package hhsgame;
 import static hhsgame.Game.*;
 import java.awt.Graphics;
 import java.awt.Image;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Finish extends Tile{
     private static final Image image = ImageReader.getImage("finish.png");
@@ -34,6 +33,6 @@ public class Finish extends Tile{
 
     @Override
     public void onCharacterEnter(Character character) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
