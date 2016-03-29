@@ -24,7 +24,7 @@ public class GameBoard extends JComponent{
     }
     
     public void togglePause() {
-        paused = !paused;
+        paused = !paused;//?
     }
     
     public void loadLevel(LevelReader reader, int level) {
