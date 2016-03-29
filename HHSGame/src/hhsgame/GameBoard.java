@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Map;
+import static hhsgame.Game.*;
 import javax.swing.JComponent;
 
 public class GameBoard extends JComponent{
@@ -55,41 +56,52 @@ public class GameBoard extends JComponent{
         public void keyTyped(KeyEvent e) {}
         @Override
         public void keyPressed(KeyEvent e) {
-            Tile nextTile;
-            if(e.getKeyCode() == e.VK_LEFT) {
-                nextTile = levelLayout.get(character.getCurrentTile().getPos().getLeft());
+            MoveDirection dir;
+            if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+                dir = MoveDirection.Left;
                 System.out.println("left pressed");
-            } else if(e.getKeyCode() == e.VK_RIGHT) {
-                nextTile = levelLayout.get(character.getCurrentTile().getPos().getRight());
+            } else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                dir = MoveDirection.Right;
                 System.out.println("right pressed");
-            } else if(e.getKeyCode() == e.VK_UP) {
-                nextTile = levelLayout.get(character.getCurrentTile().getPos().getTop());
+            } else if(e.getKeyCode() == KeyEvent.VK_UP) {
+                dir = MoveDirection.Up;
                 System.out.println("top pressed");
-            } else if(e.getKeyCode() == e.VK_DOWN) {
-                nextTile = levelLayout.get(character.getCurrentTile().getPos().getBottom());
+            } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                dir = MoveDirection.Down;
                 System.out.println("bottom pressed");
             } else {
                 return;
             }
-            if(nextTile.isPassable()) {
-                character.setCurrentTile(nextTile);
-                if(nextTile instanceof Finish) {
-                    winBox = new PopUpBox("SIE GEWANN!!");
-                }
-            } else if(nextTile instanceof Barricade) {
-                Barricade barr = (Barricade) nextTile;
-                if(character.hasKey() && barr.getKeyCode() == character.getKey().getKeyCode()) {
-                    levelLayout.put(barr.getPos(), new EmptyTile(barr.getPos()));
-                }
-            }
-            if(nextTile instanceof KeyTile) {
-                KeyTile nextKeyTile = (KeyTile) nextTile;
-                character.setKey(nextKeyTile.getKey());
-                levelLayout.put(nextKeyTile.getPos(), new EmptyTile(nextKeyTile.getPos()));
-            }
+            moveCharacter(dir);
         }
         @Override
         public void keyReleased(KeyEvent e) {}
     
+    }
+    private void moveCharacter(MoveDirection dir)
+    {
+        BoardCoordinate currentPos = character.getCurrentTile().getPos();
+        BoardCoordinate nextPos;
+        if(dir == MoveDirection.Left) {
+            nextPos = currentPos.getLeft();
+        }
+        else if(dir == MoveDirection.Right) {
+            nextPos = currentPos.getRight();
+        }
+        else if(dir == MoveDirection.Up) {
+            nextPos = currentPos.getTop();
+        }
+        else if(dir == MoveDirection.Down) {
+            nextPos = currentPos.getBottom();
+        }
+        else {
+            return;
+        }
+        Tile nextTile = levelLayout.get(nextPos);
+        if(nextTile.isPassable(character)) {
+            nextTile.onCharacterEnter(character);
+            Tile replacement = nextTile.getReplacement();
+            levelLayout.put(nextPos, replacement);
+        }       
     }
 }

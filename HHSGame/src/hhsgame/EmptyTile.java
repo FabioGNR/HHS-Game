@@ -12,7 +12,7 @@ public class EmptyTile extends Tile{
     }
     
     @Override
-    public boolean isPassable() {
+    public boolean isPassable(Character character) {
         return true;
     }
 
@@ -24,5 +24,15 @@ public class EmptyTile extends Tile{
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
-    
+
+    @Override
+    public Tile getReplacement() {
+        // empty tiles can't be replaced
+        return this;
+    }
+
+    @Override
+    public void onCharacterEnter(Character character) {
+        // no action required
+    }
 }

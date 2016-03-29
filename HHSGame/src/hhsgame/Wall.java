@@ -12,7 +12,7 @@ public class Wall extends Tile{
     }
     
     @Override
-    public boolean isPassable() {
+    public boolean isPassable(Character character) {
         return false;
     }
 
@@ -23,5 +23,16 @@ public class Wall extends Tile{
         int x = pos.getScreenX();
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+    }
+
+    @Override
+    public Tile getReplacement() {
+        // Walls can't be replaced
+        return this;
+    }
+
+    @Override
+    public void onCharacterEnter(Character character) {
+        // no action required
     }
 }

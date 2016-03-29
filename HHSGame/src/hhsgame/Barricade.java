@@ -16,8 +16,9 @@ public class Barricade extends Tile{
     }
     
     @Override
-    public boolean isPassable() {
-        return false;
+    public boolean isPassable(Character character) {
+        // return true when the character holds the correct key
+        return character.hasKey() && character.getKey().getKeyCode() == keyCode;
     }
 
     public int getKeyCode() {
@@ -34,5 +35,15 @@ public class Barricade extends Tile{
         int labelX = x + (TILE_WIDTH-50)/2;
         int labelY = y + (TILE_HEIGHT-20)/2;
         g.drawString(keyCodeLabel, labelX, labelY);
+    }
+
+    @Override
+    public Tile getReplacement() {
+        return new EmptyTile(pos);
+    }
+
+    @Override
+    public void onCharacterEnter(Character character) {
+        // no action required
     }
 }

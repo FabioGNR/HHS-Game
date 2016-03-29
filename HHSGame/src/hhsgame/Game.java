@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game{
+    public static enum MoveDirection { Up, Down, Left, Right };
     // public static variables
     public final static int ROWS = 10;
     public final static int COLS = 10;

@@ -3,6 +3,7 @@ package hhsgame;
 import static hhsgame.Game.*;
 import java.awt.Graphics;
 import java.awt.Image;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Finish extends Tile{
     private static final Image image = ImageReader.getImage("finish.png");
@@ -12,7 +13,7 @@ public class Finish extends Tile{
     }
     
     @Override
-    public boolean isPassable() {
+    public boolean isPassable(Character character) {
         return true;
     }
 
@@ -24,5 +25,15 @@ public class Finish extends Tile{
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
-    
+
+    @Override
+    public Tile getReplacement() {
+        // Finish can't be replaced
+        return this;
+    }
+
+    @Override
+    public void onCharacterEnter(Character character) {
+        throw new NotImplementedException();
+    }
 }
