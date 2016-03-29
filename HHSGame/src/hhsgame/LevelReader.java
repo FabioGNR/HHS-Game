@@ -11,11 +11,12 @@ public class LevelReader {
     private int levelAmount;
     private String fileName;
     
+    private List<Level> levels = new ArrayList<>();
+    
     
     public LevelReader(String fileName) {
 
         this.fileName = fileName;
-        levelAmount = readLevelAmount();
     }
     
     private void openFile()
@@ -29,27 +30,27 @@ public class LevelReader {
         }
     }
     
-    private int readLevelAmount() {
+    public void readLevels() {
         openFile();
-//        if(in == null) {
-//            return 0;
-//        }
-        int lineCount = 0;
+        String[][] lines = new String[ROWS][COLS];
+        int counter = 0;
+        String line;
         try {
-            while(in.readLine() != null) {
-                lineCount++;
+            
+            while((line = in.readLine()) != null) {
+                if(counter == 10) {
+                    counter = 0;
+                    levels.add(new Level(lines));
+                    lines = new String[ROWS][COLS];
+                }
+                lines[counter] = line.split(",");
             }
-        } catch (Exception e) {
-            return 0;
+        } catch(IOException e) {
+            e.printStackTrace();
         }
-        return lineCount/10;
     }
     
-    public int getLevelAmount() {
-        return levelAmount;
-    }
-    
-    public Map<BoardCoordinate, Tile> getLevelTiles(int level) {
-        
+    public List<Level> getLevels() {
+        return levels;
     }
 }
