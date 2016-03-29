@@ -42,6 +42,11 @@ public class Character{
             return;
         int x = currentTile.getPos().getScreenX();
         int y = currentTile.getPos().getScreenY();
-        g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+        // scale image uniformly to tile size
+        float widthF = image.getWidth(null)/TILE_WIDTH;
+        float heightF = image.getHeight(null)/TILE_HEIGHT;
+        float factor = Math.min(widthF, heightF);
+        int width = (int) (image.getWidth(null)*factor), height = (int) (image.getHeight(null)*factor);
+        g.drawImage(image, x, y, width, height, null);
     }
 }
