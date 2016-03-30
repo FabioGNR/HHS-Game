@@ -5,7 +5,7 @@ import java.awt.Image;
 import static hhsgame.Game.*;
 import java.awt.Color;
 
-public class Character{
+public class GameCharacter{
     private static final Image image = ImageReader.getImage("character.png");
     
     // The key the player is currently holding, can be null
@@ -13,7 +13,7 @@ public class Character{
     // The Tile the player is currently on, this will never be null
     private Tile currentTile;
     
-    public Character(Tile startTile) {
+    public GameCharacter(Tile startTile) {
         currentTile = startTile;
     }
     

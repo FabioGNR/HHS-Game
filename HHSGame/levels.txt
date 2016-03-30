@@ -18,3 +18,13 @@ E  ,E  ,E  ,B 4,E  ,E  ,E  ,E  ,E  ,E
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,K 4,E  ,E  
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,F  
+E C,K 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,K 5,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 5,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+F  ,K 3,W  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E
