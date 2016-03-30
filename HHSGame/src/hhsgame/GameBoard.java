@@ -19,7 +19,7 @@ public class GameBoard extends JComponent{
     
     private Map<BoardCoordinate, Tile> levelLayout;
     private int currentLevel;
-    private Character character;
+    private GameCharacter character;
     private PopUpBox winBox = null;
     
     public GameBoard(int width, int height) {
@@ -39,7 +39,7 @@ public class GameBoard extends JComponent{
         Level level = reader.getLevels().get(levelID);
         levelLayout = level.buildLevel();
         currentLevel = levelID;
-        character = new Character(levelLayout.get(level.start));
+        character = new GameCharacter(levelLayout.get(level.start));
         finished = false;
         paused = false;
         winBox = null;
@@ -134,4 +134,29 @@ public class GameBoard extends JComponent{
         }
         repaint();
     }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public boolean isLevelLoaded() {
+        return levelLoaded;
+    }
+
+    public Map<BoardCoordinate, Tile> getLevelLayout() {
+        return levelLayout;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public GameCharacter getCharacter() {
+        return character;
+    }
+    
 }

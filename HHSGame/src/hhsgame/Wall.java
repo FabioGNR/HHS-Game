@@ -12,7 +12,7 @@ public class Wall extends Tile{
     }
     
     @Override
-    public boolean isPassable(Character character) {
+    public boolean isPassable(GameCharacter character) {
         return false;
     }
 
@@ -32,7 +32,7 @@ public class Wall extends Tile{
     }
 
     @Override
-    public void onCharacterEnter(Character character) {
+    public void onCharacterEnter(GameCharacter character) {
         // no action required
     }
 }

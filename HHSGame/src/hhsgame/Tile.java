@@ -20,9 +20,9 @@ public abstract class Tile {
         return pos;
     }
 
-    public abstract boolean isPassable(Character character);
+    public abstract boolean isPassable(GameCharacter character);
     public abstract Tile getReplacement();
-    public abstract void onCharacterEnter(Character character);
+    public abstract void onCharacterEnter(GameCharacter character);
 
     public abstract void paint(Graphics g);
 

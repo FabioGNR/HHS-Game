@@ -15,7 +15,7 @@ public class KeyTile extends Tile {
     }
 
     @Override
-    public boolean isPassable(Character character) {
+    public boolean isPassable(GameCharacter character) {
         return true;
     }
 
@@ -44,7 +44,7 @@ public class KeyTile extends Tile {
     }
 
     @Override
-    public void onCharacterEnter(Character character) {
+    public void onCharacterEnter(GameCharacter character) {
         character.setKey(key);
     }
 }

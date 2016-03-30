@@ -7,23 +7,23 @@ import java.awt.Color;
 
 public class Barricade extends Tile{
     private static final Image image = ImageReader.getImage("barricade.png");
-    private final int keyCode;
+    private final int barrKeyCode;
     private final String keyCodeLabel;
     
     public Barricade(BoardCoordinate pos, int code) {
         super(pos);
-        keyCode = code;
+        barrKeyCode = code;
         keyCodeLabel = Integer.toString(code);
     }
     
     @Override
-    public boolean isPassable(Character character) {
+    public boolean isPassable(GameCharacter character) {
         // return true when the character holds the correct key
-        return character.hasKey() && character.getKey().getKeyCode() == keyCode;
+        return character.hasKey() && character.getKey().getKeyCode() == barrKeyCode;
     }
 
     public int getKeyCode() {
-        return keyCode;
+        return barrKeyCode;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Barricade extends Tile{
     }
 
     @Override
-    public void onCharacterEnter(Character character) {
+    public void onCharacterEnter(GameCharacter character) {
         // no action required
     }
 }
