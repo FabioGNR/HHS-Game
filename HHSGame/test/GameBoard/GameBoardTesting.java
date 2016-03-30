@@ -5,10 +5,12 @@
  */
 package GameBoard;
 
+import static hhsgame.Game.*;
 import hhsgame.Barricade;
 import hhsgame.BoardCoordinate;
 import hhsgame.EmptyTile;
 import hhsgame.Finish;
+import hhsgame.Game;
 import hhsgame.GameBoard;
 import hhsgame.GameCharacter;
 import hhsgame.KeyTile;
@@ -30,18 +32,18 @@ import static org.junit.Assert.*;
  */
 public class GameBoardTesting {
     
-    GameBoard board = new GameBoard(800, 800);
-    Map<BoardCoordinate, Tile> level;
-    GameCharacter character;
+    static GameBoard board = new GameBoard(800, 800);
+    static Map<BoardCoordinate, Tile> level;
+    static GameCharacter character;
     
     public GameBoardTesting() {
         
     }
     
-    @Before
-    public void setUp() {
-        LevelReader reader = new LevelReader("testLevel.txt");
-        board.loadLevel(reader, 0);
+    @BeforeClass
+    public static void setUp() {
+        LevelReader levelReader = new LevelReader("testLevel.txt");
+        board.loadLevel(levelReader, 0);
         level = board.getLevelLayout();
         character = board.getCharacter();
     }
@@ -71,11 +73,50 @@ public class GameBoardTesting {
         assertTrue(level.get(new BoardCoordinate(0,4)) instanceof Finish);
     }
     
+//    @Test
+//    public void pickUpKeyTest() {
+//        Tile tile = level.get(new BoardCoordinate(1,0));
+//        KeyTile keyTile = (KeyTile)tile;
+//        keyTile.onCharacterEnter(character);
+//        checkKey(4);
+//        character.setKey(null);
+//    }
+    
     @Test
-    public void pickUpKeyTest() {
-        Tile tile = level.get(new BoardCoordinate(1,0));
-        KeyTile keyTile = (KeyTile)tile;
-        keyTile.onCharacterEnter(character);
-        assertEquals(character.getKey().getKeyCode(), 4);
+    public void movementTest() {
+        board.moveCharacterTest(MoveDirection.Right);
+        checkKey(4);
+        bustThroughBarricade(MoveDirection.Down);
+        board.moveCharacterTest(MoveDirection.Down);
+        checkKey(5);
+        bustThroughBarricade(MoveDirection.Down);
+        board.moveCharacterTest(MoveDirection.Down);
+        checkKey(3);
     }
+    
+    private void checkKey(int keyCode) {
+        assertTrue(character.hasKey());
+        assertEquals(character.getKey().getKeyCode(), keyCode);
+    }
+    private void bustThroughBarricade(MoveDirection dir) {
+        BoardCoordinate previous = character.getCurrentTile().getPos();
+        board.moveCharacterTest(dir);
+        BoardCoordinate next = character.getCurrentTile().getPos();
+        assertFalse(previous.equals(next));
+    }
+    
+    @Test
+    public void wrongBarricadeTest() {
+        BoardCoordinate previous = character.getCurrentTile().getPos();
+        board.moveCharacterTest(MoveDirection.Down);
+        BoardCoordinate next = character.getCurrentTile().getPos();
+        assertTrue(previous.equals(next));
+    }
+    
+//    @Test
+//    public void finishingTest() {
+//        wrongBarricadeTest() {
+//        
+//    }
+//    }
 }

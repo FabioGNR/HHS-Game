@@ -134,6 +134,10 @@ public class GameBoard extends JComponent{
         }
         repaint();
     }
+    
+    public void moveCharacterTest(MoveDirection dir) {
+        moveCharacter(dir);
+    }
 
     public boolean isPaused() {
         return paused;
