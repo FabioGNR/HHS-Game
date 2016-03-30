@@ -15,7 +15,7 @@ public class Level {
     }
     
     public Map<BoardCoordinate, Tile> buildLevel(){
-        Map levelLayout = new TreeMap<BoardCoordinate, Tile>();
+        Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
         outerloop:
         for(int y = 0; y < tileBits.length; y++){
             for(int x = 0; x < tileBits[y].length; x++){
