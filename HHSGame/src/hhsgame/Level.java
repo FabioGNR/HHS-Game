@@ -27,7 +27,7 @@ public class Level {
                     if(parts.length == 1 || (parts.length == 2 && parts[1].equals("C"))) {
                         if(parts.length > 1) {
                             if(parts[1].equals("C")) {
-                                start = new BoardCoordinate(y, x);
+                                start = new BoardCoordinate(x, y);
                             }
                         }
                     }
