@@ -8,7 +8,6 @@ import static hhsgame.Game.*;
 public class LevelReader {
 
     private BufferedReader in = null;
-    private int levelAmount;
     private String fileName;
     
     private List<Level> levels = new ArrayList<>();
@@ -45,6 +44,7 @@ public class LevelReader {
                     counter = 0;
                     levels.add(new Level(lines));
                     lines = new String[ROWS][COLS];
+                    in.readLine();
                 }
             }
         } catch(IOException e) {

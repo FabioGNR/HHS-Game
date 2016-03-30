@@ -113,10 +113,8 @@ public class GameBoardTesting {
         assertTrue(previous.equals(next));
     }
     
-//    @Test
-//    public void finishingTest() {
-//        wrongBarricadeTest() {
-//        
-//    }
-//    }
+    @Test
+    public void finishingTest() {
+        
+    }
 }
