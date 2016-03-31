@@ -7,12 +7,17 @@ import java.util.TreeMap;
 
 public class Level {
 
-    String[][] tileBits = new String[ROWS][COLS];
-    BoardCoordinate start;
+    private String[][] tileBits = new String[ROWS][COLS];
+    private BoardCoordinate start;
     
     public Level(String[][] tileBits){
         this.tileBits = tileBits;
     }
+
+    public BoardCoordinate getStart() {
+        return start;
+    }
+    
     
     public Map<BoardCoordinate, Tile> buildLevel(){
         Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
@@ -57,7 +62,7 @@ public class Level {
         return levelLayout;
     }
     
-    public void debugPrint(int xPos, int yPos) {
+    private void debugPrint(int xPos, int yPos) {
         System.out.println("Debug:");
         for(int y = 0; y < yPos; y++) {
             for(int i = 0; i < tileBits[y].length; i++) {

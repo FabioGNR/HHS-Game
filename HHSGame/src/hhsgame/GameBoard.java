@@ -36,7 +36,7 @@ public class GameBoard extends JComponent{
         Level level = reader.getLevels().get(levelID);
         levelLayout = level.buildLevel();
         currentLevel = levelID;
-        character = new GameCharacter(levelLayout.get(level.start));
+        character = new GameCharacter(levelLayout.get(level.getStart()));
         finished = false;
         paused = false;
         winBox = null;

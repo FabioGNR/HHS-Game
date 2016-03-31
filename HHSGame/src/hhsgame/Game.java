@@ -69,7 +69,7 @@ public class Game{
     private static CardLayout containerLayout;
     private static JPanel gamePanel, menuPanel, containerPanel;
 
-    private static LevelReader reader = new LevelReader("levels.txt");
+    private static final LevelReader reader = new LevelReader("levels.txt");
     
     // An enum to limit the actions a button can have because Strings are ugly for that
     enum ButtonAction{
