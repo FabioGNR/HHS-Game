@@ -6,13 +6,9 @@ import java.awt.Image;
 
 public abstract class Tile {
 
-    protected BoardCoordinate pos;
+    protected final BoardCoordinate pos;
 
     public Tile(BoardCoordinate pos) {
-        this.pos = pos;
-    }
-
-    public void setPos(BoardCoordinate pos) {
         this.pos = pos;
     }
 

@@ -108,7 +108,7 @@ public class GameBoard extends JComponent{
             Tile replacement = nextTile.getReplacement();
             levelLayout.put(nextPos, replacement);
             character.setCurrentTile(replacement);
-            if(replacement instanceof Finish) {
+            if(replacement.isFinish()) {
                 finishGame();
             }
         }
