@@ -45,9 +45,4 @@ public class Barricade extends Tile{
     public Tile getReplacement() {
         return new EmptyTile(pos);
     }
-
-    @Override
-    public void onCharacterEnter(GameCharacter character) {
-        // no action required
-    }
 }

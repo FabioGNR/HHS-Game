@@ -21,8 +21,15 @@ public abstract class Tile {
     }
 
     public abstract boolean isPassable(GameCharacter character);
-    public abstract Tile getReplacement();
-    public abstract void onCharacterEnter(GameCharacter character);
+    public Tile getReplacement() {
+        return this;
+    }
+    public void onCharacterEnter(GameCharacter character) {
+    }
+    public boolean isFinish()
+    {
+        return false;
+    }
 
     public abstract void paint(Graphics g);
 

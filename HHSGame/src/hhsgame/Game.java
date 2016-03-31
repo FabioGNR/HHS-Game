@@ -10,7 +10,34 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game{
-    public static enum MoveDirection { Up, Down, Left, Right };
+    public enum MoveDirection { 
+        Up {
+            @Override
+            public BoardCoordinate getCoordinate(BoardCoordinate pos) {
+                return pos.getUp();
+            }            
+        }, 
+        Down {
+            @Override
+            public BoardCoordinate getCoordinate(BoardCoordinate pos) {
+                return pos.getDown();
+            }            
+        }        
+        , Left {
+            @Override
+            public BoardCoordinate getCoordinate(BoardCoordinate pos) {
+                return pos.getLeft();
+            }  
+        }       
+        , Right {
+            @Override
+            public BoardCoordinate getCoordinate(BoardCoordinate pos) {
+                return pos.getRight();
+            }  
+        };     
+        public abstract BoardCoordinate getCoordinate(BoardCoordinate pos);
+  
+    };
     // public static variables
     public final static int ROWS = 10;
     public final static int COLS = 10;

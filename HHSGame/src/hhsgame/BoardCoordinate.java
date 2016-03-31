@@ -38,10 +38,10 @@ public class BoardCoordinate implements Comparable{
     public BoardCoordinate getRight(){
         return new BoardCoordinate(x+1, y);    
     }
-    public BoardCoordinate getTop(){
+    public BoardCoordinate getUp(){
         return new BoardCoordinate(x, y-1);
     }
-    public BoardCoordinate getBottom(){
+    public BoardCoordinate getDown(){
         return new BoardCoordinate(x,y+1);
     }
     

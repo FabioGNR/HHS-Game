@@ -8,9 +8,9 @@ import static hhsgame.Game.*;
 public class LevelReader {
 
     private BufferedReader in = null;
-    private String fileName;
+    private final String fileName;
     
-    private List<Level> levels = new ArrayList<>();
+    private final List<Level> levels = new ArrayList<>();
     
     
     public LevelReader(String fileName) {
