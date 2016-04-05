@@ -28,5 +28,4 @@ public abstract class Tile {
     }
 
     public abstract void paint(Graphics g);
-
 }

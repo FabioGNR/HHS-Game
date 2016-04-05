@@ -24,4 +24,8 @@ public class Wall extends Tile{
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
+
+    public static Image getImage() {
+        return image;
+    }
 }

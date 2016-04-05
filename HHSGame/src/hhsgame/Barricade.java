@@ -45,4 +45,8 @@ public class Barricade extends Tile{
     public Tile getReplacement() {
         return new EmptyTile(pos);
     }
+
+    public static Image getImage() {
+        return image;
+    }
 }

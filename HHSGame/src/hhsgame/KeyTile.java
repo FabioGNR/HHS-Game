@@ -47,4 +47,8 @@ public class KeyTile extends Tile {
     public void onCharacterEnter(GameCharacter character) {
         character.setKey(key);
     }
+
+    public static Image getImage() {
+        return image;
+    }
 }

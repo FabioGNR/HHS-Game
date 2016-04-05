@@ -1,5 +1,6 @@
 package hhsgame;
 
+import hhsgame.editor.EditorPanel;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,6 @@ public class Game{
             }  
         };     
         public abstract BoardCoordinate getCoordinate(BoardCoordinate pos);
-  
     };
     // public static variables
     public final static int ROWS = 10;
@@ -46,12 +46,11 @@ public class Game{
     public final static int MENU_PADDING = 10;
     public final static int BUTTON_HEIGHT = 60;
     public final static Font LABEL_FONT = new Font("Calibri", Font.BOLD, 22);
+    public final static int RIGHT_BOUND = TILE_WIDTH*COLS;
+    public final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
+    public final static int MENU_MARGIN = 200;    
     
     // private interface variables
-    private final static int MENU_MARGIN = 200;
-    
-    protected final static int RIGHT_BOUND = TILE_WIDTH*COLS;
-    protected final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
     
     private final static int MAIN_MENU_WIDTH = 300;
     private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
@@ -61,12 +60,13 @@ public class Game{
     
     private final static String GAME_CARD_ID = "GameCard";
     private final static String MENU_CARD_ID = "MenuCard";
+    private final static String EDITOR_CARD_ID = "EditorCard";
     //
     
     private static GameBoard board;
     private static JFrame frame;
     private static CardLayout containerLayout;
-    private static JPanel gamePanel, menuPanel, containerPanel;
+    private static JPanel gamePanel, menuPanel, editorPanel, containerPanel;
 
     private static final LevelReader reader = new LevelReader("levels.txt");
     
@@ -83,11 +83,13 @@ public class Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         createGamePanel();
+        editorPanel = new EditorPanel();
         createMenuPanel();
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
         containerPanel.add(menuPanel, MENU_CARD_ID);
         containerPanel.add(gamePanel, GAME_CARD_ID);
+        containerPanel.add(editorPanel, EDITOR_CARD_ID);
         frame.add(containerPanel);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
