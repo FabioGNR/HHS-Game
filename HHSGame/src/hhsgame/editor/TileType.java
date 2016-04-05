@@ -9,6 +9,7 @@ import hhsgame.Barricade;
 import hhsgame.BoardCoordinate;
 import hhsgame.EmptyTile;
 import hhsgame.Finish;
+import hhsgame.GameCharacter;
 import hhsgame.Key;
 import hhsgame.KeyTile;
 import hhsgame.Tile;
@@ -81,6 +82,19 @@ public enum TileType {
         public Tile createInstance(BoardCoordinate pos, int keycode) {
             return new Finish(pos);
         }
+    },
+    Start{
+
+        @Override
+        public Image getImage() {
+            return GameCharacter.getImage();
+        }
+
+        @Override
+        public Tile createInstance(BoardCoordinate pos, int keyCode) {
+            return new EmptyTile(pos);
+        }
+        
     };
     
     public abstract Image getImage();

@@ -36,6 +36,10 @@ public class GameCharacter{
     public void setCurrentTile(Tile currentTile) {
         this.currentTile = currentTile;
     }
+
+    public static Image getImage() {
+        return image;
+    }
     
     public void paint(Graphics g)
     {

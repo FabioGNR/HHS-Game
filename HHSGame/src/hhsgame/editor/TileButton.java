@@ -44,7 +44,11 @@ public class TileButton extends JComponent {
         Image image = type.getImage();
         if(image == null)
             return;
-        g.drawImage(image, 0, 0, TILE_WIDTH, TILE_HEIGHT, null);
+        float widthF = (float)(TILE_WIDTH)/(float)image.getWidth(null);
+        float heightF = (float)(TILE_HEIGHT)/(float)image.getHeight(null);
+        float factor = Math.min(widthF, heightF);
+        int width = (int) (image.getWidth(null)*factor), height = (int) (image.getHeight(null)*factor);
+        g.drawImage(image, 0, 0, width, height, null);
         if(selected)
         {
             Graphics2D g2 = (Graphics2D)g;

@@ -17,15 +17,20 @@ public class Editor extends JComponent{
     
     private String levelName;
     private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
-    private GameCharacter character;
+    private BoardCoordinate characterStart = null;
     private BoardCoordinate selected = null;
     private TileType currTileType = TileType.Empty;
     private int keyCode = 0;
     
     public Editor(int width, int height) {
-        reset(); // fills level with empty tiles
+        this.reset(); // fills level with empty tiles
         this.setSize(width, height);
         this.addMouseListener(new SelectListener());
+    }
+    
+    public void openLevel(Level level) {
+        levelLayout = level.getLevelLayout();
+        characterStart = level.getStart();
     }
     
     @Override
@@ -40,6 +45,17 @@ public class Editor extends JComponent{
             g.setColor(Color.RED);
             g.drawRect(selected.getScreenX(),selected.getScreenY(), TILE_WIDTH, TILE_HEIGHT);
             g.setColor(Color.BLACK);
+        }
+        
+        if(characterStart != null){
+            int x = characterStart.getScreenX();
+            int y = characterStart.getScreenY();
+            // scale image uniformly to tile size
+            float widthF = (float)(TILE_WIDTH-10)/(float)GameCharacter.getImage().getWidth(null);
+            float heightF = (float)(TILE_HEIGHT-10)/(float)GameCharacter.getImage().getHeight(null);
+            float factor = Math.min(widthF, heightF);
+            int width = (int) (GameCharacter.getImage().getWidth(null)*factor), height = (int) (GameCharacter.getImage().getHeight(null)*factor);
+            g.drawImage(GameCharacter.getImage(), x, y+5, width, height, null);
         }
     }
     
@@ -58,7 +74,10 @@ public class Editor extends JComponent{
         repaint();
     }
     
-    public void save(String filePath) throws IOException {
+    public void save(String filePath) throws Exception {
+        if(characterStart == null) {
+            throw new Exception("No character start");
+        }
         String[][] levelString = new String[ROWS][COLS];
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
@@ -74,6 +93,7 @@ public class Editor extends JComponent{
                 levelString[pos.getY()][pos.getX()] = "E  ";
             }
         }
+        levelString[characterStart.getY()][characterStart.getX()] = "E C";
         LevelWriter.writeLevel(filePath, levelString);
     }
     
@@ -96,6 +116,9 @@ public class Editor extends JComponent{
             if(selected != null) {
                 currTile = currTileType.createInstance(selected, keyCode);
                 levelLayout.put(selected, currTile);
+                if(currTileType == TileType.Start) {
+                    characterStart = selected;
+                }
             }
             repaint();
         }

@@ -5,6 +5,7 @@
  */
 package hhsgame.editor;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class LevelWriter {
     public static void writeLevel(String filepath, String[][] tiles) throws IOException
     {
+        filepath = filepath + ".lvl";
         FileWriter writer = new FileWriter(filepath);
         for(int l = 0; l < tiles.length; l++) {
             String[] line = tiles[l];
@@ -35,7 +37,7 @@ public class LevelWriter {
     
     public static void addLevel(String filePath) {
         try {
-            FileWriter writer = new FileWriter("levels.txt");
+            FileWriter writer = new FileWriter("levels.txt", true);
             writer.append(filePath);
             writer.append("\r\n");
             writer.close();
