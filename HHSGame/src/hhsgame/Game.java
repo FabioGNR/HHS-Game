@@ -67,7 +67,8 @@ public class Game{
     private static GameBoard board;
     private static JFrame frame;
     private static CardLayout containerLayout;
-    private static JPanel gamePanel, menuPanel, editorPanel, containerPanel;
+    private static JPanel gamePanel, menuPanel, containerPanel;
+    private static EditorPanel editorPanel;
     private static JComboBox levelSelect;
     private static JButton startButton;
 
@@ -75,7 +76,7 @@ public class Game{
     
     // An enum to limit the actions a button can have because Strings are ugly for that
     enum ButtonAction{
-        Reset, Pause, Menu
+        Reset, Pause, Menu, Start
     }
     
     public static void main(String[] args) {
@@ -115,10 +116,16 @@ public class Game{
         editorButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT);
         editorButton.setText("STARTE DIE EDITOR!");        
         editorButton.addActionListener(new EditorButtonListener());
-        startButton.addActionListener(new StartButtonListener(levelSelect));
+        startButton.addActionListener(new ButtonClickListener(ButtonAction.Start));
         menuPanel.add(levelSelect);
         menuPanel.add(startButton);
         menuPanel.add(editorButton);
+    }
+    
+    private static Level getSelectedLevel() {
+        int level = levelSelect.getSelectedIndex();
+        return reader.getLevels().get(level);
+        
     }
     
     private static void fillLevelList() {
@@ -202,6 +209,11 @@ public class Game{
                 board.reset(reader);
             } else if(action == ButtonAction.Menu) {
                 openMenu(); 
+            } else if(action == ButtonAction.Start) {
+                containerLayout.show(containerPanel, GAME_CARD_ID);
+                board.grabFocus();
+                board.loadLevel(reader, getSelectedLevel());
+                board.repaint();   
             }
         }      
     }
@@ -210,22 +222,7 @@ public class Game{
         @Override
         public void actionPerformed(ActionEvent e) {
             containerLayout.show(containerPanel, EDITOR_CARD_ID);
-        }
-    }
-    
-    static class StartButtonListener implements ActionListener {      
-        JComboBox dropDown;
-        public StartButtonListener(JComboBox dropDown) {
-            this.dropDown = dropDown;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int level = dropDown.getSelectedIndex();
-            containerLayout.show(containerPanel, GAME_CARD_ID);
-            board.grabFocus();
-            board.loadLevel(reader, level);
-            board.repaint();
+            editorPanel.openLevel(getSelectedLevel());
         }
     }
 }

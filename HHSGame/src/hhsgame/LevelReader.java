@@ -26,28 +26,6 @@ public LevelReader(String fileName) {
         }
     }
     
-//    private void readLevels() {
-//        openFile();
-//        String[][] lines = new String[ROWS][COLS];
-//        int counter = 0;
-//        String line;
-//        try {
-//            
-//            while((line = in.readLine()) != null) {
-//                lines[counter] = line.split(",");
-//                counter++;
-//                if(counter == 10) {
-//                    counter = 0;
-//                    levels.add(new Level(lines));
-//                    lines = new String[ROWS][COLS];
-//                    in.readLine();
-//                }
-//            }
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-    
     public void readLevels() {
         levels.clear();
         openFile(fileName);
@@ -59,9 +37,9 @@ public LevelReader(String fileName) {
                 levelNames.add(line);
             }
             for(String level : levelNames) {
-                openFile(level);
-                line = in.readLine();
+                openFile(level);                
                 for(int i = 0; i < 10; i++) {
+                    line = in.readLine();
                     lines[i] = line.split(",");
                 }
                 levels.add(new Level(lines, level));

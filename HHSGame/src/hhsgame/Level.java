@@ -9,6 +9,7 @@ public class Level {
 
     private String[][] tileBits = new String[ROWS][COLS];
     private final String filename;
+    private Map<BoardCoordinate, Tile> levelLayout = null;
     private BoardCoordinate start;
     
     public Level(String[][] tileBits, String filename){
@@ -24,9 +25,15 @@ public class Level {
         return start;
     }
     
+    public Map<BoardCoordinate, Tile> getLevelLayout() {
+        if(levelLayout == null) {
+            buildLevel();
+        }
+        return new TreeMap<>(levelLayout);
+    }
     
-    public Map<BoardCoordinate, Tile> buildLevel(){
-        Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
+    private void buildLevel(){
+        levelLayout = new TreeMap<>();
         outerloop:
         for(int y = 0; y < tileBits.length; y++){
             for(int x = 0; x < tileBits[y].length; x++){
@@ -35,11 +42,9 @@ public class Level {
                 String[] parts;
                 parts = currentBit.split(" +");
                 if(parts[0].equals("E")) {
-                    if(parts.length == 1 || (parts.length == 2 && parts[1].equals("C"))) {
-                        if(parts.length > 1) {
-                            if(parts[1].equals("C")) {
-                                start = new BoardCoordinate(x, y);
-                            }
+                    if(parts.length > 1) {
+                        if(parts[1].equals("C")) {
+                            start = new BoardCoordinate(x, y);
                         }
                     }
                 } else if(parts[0].equals("K")) {
@@ -65,7 +70,6 @@ public class Level {
                 levelLayout.put(currentTile.getPos(), currentTile);
             }
         }
-        return levelLayout;
     }
     
     private void debugPrint(int xPos, int yPos) {

@@ -9,6 +9,7 @@ import hhsgame.Barricade;
 import hhsgame.EmptyTile;
 import static hhsgame.Game.*;
 import hhsgame.KeyTile;
+import hhsgame.Level;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -75,6 +76,11 @@ public class EditorPanel extends JPanel {
         add(editor);
         editor.repaint();
         repaint();
+    }
+    
+    public void openLevel(Level level) {
+        editor.openLevel(level);
+        levelNameField.setText(level.getFilename().replace(".lvl", ""));
     }
     
     private void createTileButton(TileType type, int y)

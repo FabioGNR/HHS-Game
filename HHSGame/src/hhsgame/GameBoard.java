@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.util.Map;
 import static hhsgame.Game.*;
 import java.awt.Dimension;
+import java.util.TreeMap;
 import javax.swing.JComponent;
 
 public class GameBoard extends JComponent {
@@ -15,7 +16,7 @@ public class GameBoard extends JComponent {
     private boolean levelLoaded = false;
 
     private Map<BoardCoordinate, Tile> levelLayout;
-    private int currentLevel;
+    private Level currentLevel;
     private GameCharacter character;
     private PopUpBox winBox = null;
 
@@ -29,10 +30,9 @@ public class GameBoard extends JComponent {
         grabFocus();
     }
 
-    public void loadLevel(LevelReader reader, int levelID) {
-        Level level = reader.getLevels().get(levelID);
-        levelLayout = level.buildLevel();
-        currentLevel = levelID;
+    public void loadLevel(LevelReader reader, Level level) {
+        levelLayout = level.getLevelLayout();
+        currentLevel = level;
         character = new GameCharacter(levelLayout.get(level.getStart()));
         finished = false;
         paused = false;
@@ -141,7 +141,7 @@ public class GameBoard extends JComponent {
         return levelLayout;
     }
 
-    public int getCurrentLevel() {
+    public Level getCurrentLevel() {
         return currentLevel;
     }
 
