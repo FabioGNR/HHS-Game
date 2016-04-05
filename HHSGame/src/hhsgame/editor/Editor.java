@@ -14,19 +14,20 @@ import javax.swing.JComponent;
 public class Editor extends JComponent{
     
     private String levelName;
-    private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<BoardCoordinate, Tile>();
+    private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
     private GameCharacter character;
     private BoardCoordinate selected = null;
     private TileType currTileType;
     private int keyCode;
     
-    public Editor() {
+    public Editor(int width, int height) {
         for(int y = 0; y < ROWS; y++) {
             for(int x = 0; x < COLS; x++) {
                 BoardCoordinate currPos = new BoardCoordinate(x, y);
                 levelLayout.put(currPos, new EmptyTile(currPos));
             }
         }
+        this.setSize(width, height);
         this.addMouseListener(new SelectListener());
     }
     
@@ -36,8 +37,6 @@ public class Editor extends JComponent{
         for (Tile tile : levelLayout.values()) {
             tile.paint(g);
         }
-        // paint player on top
-        character.paint(g);
         if(selected != null) {
             g.setColor(Color.RED);
             g.drawRect(selected.getX(), selected.getY(), TILE_WIDTH, TILE_HEIGHT);
@@ -73,6 +72,10 @@ public class Editor extends JComponent{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             int BoardX = e.getX()/TILE_WIDTH;
             int BoardY = e.getY()/TILE_HEIGHT;
             
@@ -85,10 +88,7 @@ public class Editor extends JComponent{
                 currTile = currTileType.createInstance(selected, keyCode);
                 levelLayout.put(selected, currTile);
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
+            repaint();
         }
         @Override
         public void mouseReleased(MouseEvent e) {

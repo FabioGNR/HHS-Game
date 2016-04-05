@@ -83,7 +83,7 @@ public class Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         createGamePanel();
-        editorPanel = new EditorPanel(new MenuOpener());
+        editorPanel = new EditorPanel(new MenuOpener(), FRAME_WIDTH, FRAME_HEIGHT);
         createMenuPanel();
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
@@ -120,10 +120,15 @@ public class Game{
         }
         levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
-        
+        JButton editorButton = new JButton();
+        editorButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+        editorButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT);
+        editorButton.setText("STARTE DIE EDITOR!");        
+        editorButton.addActionListener(new EditorButtonListener());
         startButton.addActionListener(new StartButtonListener(levelSelect));
         menuPanel.add(levelSelect);
         menuPanel.add(startButton);
+        menuPanel.add(editorButton);
     }
     
     private static void createGamePanel() {
@@ -175,9 +180,16 @@ public class Game{
             } else if(action == ButtonAction.Reset) {
                 board.reset(reader);
             } else if(action == ButtonAction.Menu) {
-                
+                containerLayout.show(containerPanel, MENU_CARD_ID);  
             }
         }      
+    }
+    
+    static class EditorButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            containerLayout.show(containerPanel, EDITOR_CARD_ID);
+        }
     }
     
     static class StartButtonListener implements ActionListener {      

@@ -11,10 +11,13 @@ import static hhsgame.Game.*;
 import hhsgame.KeyTile;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -29,35 +32,43 @@ public class EditorPanel extends JPanel {
     private JTextField levelNameField, keyCodeField;
     private TileButton selectedTileButton = null;
     
-    public EditorPanel(ActionListener menuOpener)
+    public EditorPanel(ActionListener menuOpener, int width, int height)
     {
+        int textFieldHeight = BUTTON_HEIGHT-10;
         setLayout(null);
         levelNameField = new JTextField();
         levelNameField.setLocation(RIGHT_BOUND+MENU_PADDING, MENU_PADDING);
-        levelNameField.setSize(MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);       
+        levelNameField.setSize(MENU_MARGIN-(MENU_PADDING*2), textFieldHeight);       
         add(levelNameField);
         saveButton = new JButton();
+        saveButton.setText("Save Level");
         saveButton.setLocation(RIGHT_BOUND+MENU_PADDING, MENU_PADDING*2+BUTTON_HEIGHT);
         saveButton.setSize(MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);
         saveButton.addActionListener(new SaveListener());
         add(saveButton);
         menuButton = new JButton();
+        menuButton.setText("Menu");
         menuButton.setLocation(RIGHT_BOUND+MENU_PADDING, MENU_PADDING*3+BUTTON_HEIGHT*2);
         menuButton.setSize(MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);
         menuButton.addActionListener(menuOpener);
         add(menuButton);
         keyCodeField = new JTextField();
         keyCodeField.setLocation(RIGHT_BOUND+MENU_PADDING, MENU_PADDING*4+BUTTON_HEIGHT*3);
-        keyCodeField.setSize(MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);
+        keyCodeField.setSize(MENU_MARGIN-(MENU_PADDING*2), textFieldHeight);
         add(keyCodeField);
 
         createTileButtons();
+        editor = new Editor(width, height);
+        add(editor);
+        editor.repaint();
+        repaint();
     }
     
     private void createTileButton(TileType type, int y)
     {
         int tileButtonX = RIGHT_BOUND+MENU_PADDING;
         TileButton button = new TileButton(type, tileButtonX, y);
+        button.addMouseListener(new TileButtonListener());
         add(button);
     }
     
@@ -79,17 +90,20 @@ public class EditorPanel extends JPanel {
                 try {
                     editor.save(filepath);
                 }
-                catch(IOException e) {
+                catch(IOException ex) {
                     
                 }
             }
         }
     }
     
-    protected class TileButtonListener implements ActionListener {
+    protected class TileButtonListener implements MouseListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
+        }
+        @Override
+        public void mousePressed(MouseEvent e) {
             TileButton source = (TileButton)e.getSource();
             if(selectedTileButton != null) {
                 selectedTileButton.setSelectedState(false);
@@ -105,6 +119,15 @@ public class EditorPanel extends JPanel {
                 keyCode = 0;
             }
             editor.setTileType(source.getType(), keyCode);
-        }    
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
     }
 }

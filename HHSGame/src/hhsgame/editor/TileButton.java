@@ -9,7 +9,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JComponent;
 import static hhsgame.Game.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -45,6 +47,8 @@ public class TileButton extends JComponent {
         g.drawImage(image, 0, 0, TILE_WIDTH, TILE_HEIGHT, null);
         if(selected)
         {
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke(10));
             g.setColor(Color.RED);
             g.drawRect(0,0, TILE_WIDTH, TILE_HEIGHT);
             g.setColor(Color.BLACK);
