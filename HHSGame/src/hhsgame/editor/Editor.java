@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.JComponent;
@@ -17,6 +18,7 @@ public class Editor extends JComponent{
     private GameCharacter character;
     private BoardCoordinate selected = null;
     private TileType currTileType;
+    private int keyCode;
     
     public Editor() {
         for(int y = 0; y < ROWS; y++) {
@@ -45,11 +47,26 @@ public class Editor extends JComponent{
     
     public void setTileType(TileType type, int keyCode) {
         currTileType = type;
-        Tile currTile;
-        if(selected != null) {
-            currTile = currTileType.createInstance(selected);
-            levelLayout.put(selected, currTile);
+        this.keyCode = keyCode;
+    }
+    
+    public void save(String filePath) throws IOException {
+        String[][] levelString = new String[ROWS][COLS];
+        for(BoardCoordinate pos : levelLayout.keySet()) {
+            Tile currTile = levelLayout.get(pos);
+            if(currTile instanceof KeyTile) {
+                levelString[pos.getY()][pos.getX()] = "K "+((KeyTile) currTile).getKey().getKeyCode();
+            } else if(currTile instanceof Barricade) {
+                levelString[pos.getY()][pos.getX()] = "B "+((Barricade) currTile).getKeyCode();
+            } else if(currTile instanceof Wall) {
+                levelString[pos.getY()][pos.getX()] = "W  ";
+            } else if(currTile instanceof Finish) {
+                levelString[pos.getY()][pos.getX()] = "F  ";
+            } else {
+                levelString[pos.getY()][pos.getX()] = "E  ";
+            }
         }
+        LevelWriter.writeLevel(filePath, levelString);
     }
     
     public class SelectListener implements MouseListener {
@@ -63,7 +80,11 @@ public class Editor extends JComponent{
                 selected = new BoardCoordinate(BoardX, BoardY);
             }
             
-            currTile = 
+            Tile currTile;
+            if(selected != null) {
+                currTile = currTileType.createInstance(selected, keyCode);
+                levelLayout.put(selected, currTile);
+            }
         }
 
         @Override
