@@ -87,7 +87,7 @@ public class EditorPanel extends JPanel {
     
     private void createTileButtons()
     {
-        int startY = MENU_PADDING*6+BUTTON_HEIGHT*3+textFieldHeight*2;
+        int startY = MENU_PADDING*6+BUTTON_HEIGHT*3+TEXT_FIELD_HEIGHT*2;
         createTileButton(TileType.Empty, startY);
         createTileButton(TileType.Key, startY+TILE_HEIGHT+MENU_PADDING);
         createTileButton(TileType.Barricade, startY+(TILE_HEIGHT+MENU_PADDING)*2);
@@ -110,14 +110,20 @@ public class EditorPanel extends JPanel {
     protected class KeyCodeFieldChanged implements DocumentListener {
         @Override
         public void insertUpdate(DocumentEvent e) {
+            setKeyCode();
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
+            setKeyCode();
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
+            setKeyCode();
+        }
+    
+        private void setKeyCode() {
             if(selectedTileButton != null) {
                 editor.setTileType(selectedTileButton.getType(), getKeyCode());
             }
