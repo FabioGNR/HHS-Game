@@ -2,8 +2,10 @@ package hhsgame.editor;
 
 import hhsgame.*;
 import static hhsgame.Game.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -17,8 +19,8 @@ public class Editor extends JComponent{
     private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
     private GameCharacter character;
     private BoardCoordinate selected = null;
-    private TileType currTileType;
-    private int keyCode;
+    private TileType currTileType = TileType.Empty;
+    private int keyCode = 0;
     
     public Editor(int width, int height) {
         reset(); // fills level with empty tiles
@@ -33,8 +35,10 @@ public class Editor extends JComponent{
             tile.paint(g);
         }
         if(selected != null) {
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke(5));
             g.setColor(Color.RED);
-            g.drawRect(selected.getX(), selected.getY(), TILE_WIDTH, TILE_HEIGHT);
+            g.drawRect(selected.getScreenX(),selected.getScreenY(), TILE_WIDTH, TILE_HEIGHT);
             g.setColor(Color.BLACK);
         }
     }
