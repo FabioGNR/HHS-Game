@@ -55,6 +55,7 @@ public class Editor extends JComponent{
                 levelLayout.put(currPos, new EmptyTile(currPos));
             }
         }
+        repaint();
     }
     
     public void save(String filePath) throws IOException {
