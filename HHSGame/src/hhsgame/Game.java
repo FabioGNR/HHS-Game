@@ -83,7 +83,7 @@ public class Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         createGamePanel();
-        editorPanel = new EditorPanel();
+        editorPanel = new EditorPanel(new MenuOpener());
         createMenuPanel();
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
@@ -154,6 +154,13 @@ public class Game{
         return button;
     }
     
+    static class MenuOpener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            containerLayout.show(containerPanel, MENU_CARD_ID);    
+        }
+    }
+    
     // Maybe not static? Was necessary for the ButtonSetup.
     static class ButtonClickListener implements ActionListener{
         ButtonAction action;
@@ -168,7 +175,7 @@ public class Game{
             } else if(action == ButtonAction.Reset) {
                 board.reset(reader);
             } else if(action == ButtonAction.Menu) {
-                containerLayout.show(containerPanel, MENU_CARD_ID);
+                
             }
         }      
     }
