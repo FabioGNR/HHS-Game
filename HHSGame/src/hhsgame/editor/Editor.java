@@ -43,11 +43,12 @@ public class Editor extends JComponent{
         }
     }
     
-    public void setTileType(TileType type) {
+    public void setTileType(TileType type, int keyCode) {
         currTileType = type;
         Tile currTile;
         if(selected != null) {
             currTile = currTileType.createInstance(selected);
+            levelLayout.put(selected, currTile);
         }
     }
     
