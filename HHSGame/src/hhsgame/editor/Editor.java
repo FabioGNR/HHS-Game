@@ -23,12 +23,7 @@ public class Editor extends JComponent{
     private int keyCode = 0;
     
     public Editor(int width, int height) {
-        for(int y = 0; y < ROWS; y++) {
-            for(int x = 0; x < COLS; x++) {
-                BoardCoordinate currPos = new BoardCoordinate(x, y);
-                levelLayout.put(currPos, new EmptyTile(currPos));
-            }
-        }
+        reset(); // fills level with empty tiles
         this.setSize(width, height);
         this.addMouseListener(new SelectListener());
     }
@@ -51,6 +46,15 @@ public class Editor extends JComponent{
     public void setTileType(TileType type, int keyCode) {
         currTileType = type;
         this.keyCode = keyCode;
+    }
+    
+    public void reset() {
+        for(int y = 0; y < ROWS; y++) {
+            for(int x = 0; x < COLS; x++) {
+                BoardCoordinate currPos = new BoardCoordinate(x, y);
+                levelLayout.put(currPos, new EmptyTile(currPos));
+            }
+        }
     }
     
     public void save(String filePath) throws IOException {
