@@ -21,11 +21,13 @@ public class LevelWriter {
             for(int b = 0; b < line.length; b++) {
                 String tile = line[b];
                 writer.append(tile);
-                if(b < line.length) {
-                    writer.append(", ");
+                if(b < line.length-1) {
+                    writer.append(",");
                 }
             }
-            writer.append('\n');    
+            if(l < tiles.length-1) {
+                writer.append("\r\n");   
+            }
         }
         writer.close();       
     }
