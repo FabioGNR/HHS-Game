@@ -17,13 +17,17 @@ import java.awt.Color;
  */
 public class TileButton extends JComponent {
     private final TileType type;
-    boolean selected = false;
+    private boolean selected = false;
     
     public TileButton(TileType type, int x, int y)
     {
         this.type = type;
         this.setLocation(x, y);
         this.setSize(TILE_WIDTH, TILE_HEIGHT);
+    }
+
+    public TileType getType() {
+        return type;
     }
     
     public void setSelectedState(boolean state)

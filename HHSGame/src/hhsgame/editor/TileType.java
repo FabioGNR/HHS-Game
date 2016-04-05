@@ -29,20 +29,20 @@ public enum TileType {
         }
 
         @Override
-        public Tile createInstance(BoardCoordinate pos) {
+        public Tile createInstance(BoardCoordinate pos, int keyCode) {
             return new EmptyTile(pos);
         }       
     },
     Key{
-        private final Key defaultKey = new Key(1);
+        //private final Key defaultKey = new Key(1);
         @Override
         public Image getImage() {
             return KeyTile.getImage();
         }
 
         @Override
-        public Tile createInstance(BoardCoordinate pos) {
-            return new KeyTile(pos, defaultKey);
+        public Tile createInstance(BoardCoordinate pos, int keyCode) {
+            return new KeyTile(pos, new Key(keyCode));
         }
     },
     Barricade{
@@ -53,8 +53,8 @@ public enum TileType {
         }
 
         @Override
-        public Tile createInstance(BoardCoordinate pos) {
-            return new Barricade(pos, 1);
+        public Tile createInstance(BoardCoordinate pos, int keyCode) {
+            return new Barricade(pos, keyCode);
         }      
     },
     Wall{
@@ -65,7 +65,7 @@ public enum TileType {
         }
 
         @Override
-        public Tile createInstance(BoardCoordinate pos) {
+        public Tile createInstance(BoardCoordinate pos, int keyCode) {
             return new Wall(pos);
         }
         
@@ -78,11 +78,11 @@ public enum TileType {
         }
 
         @Override
-        public Tile createInstance(BoardCoordinate pos) {
+        public Tile createInstance(BoardCoordinate pos, int keycode) {
             return new Finish(pos);
         }
     };
     
     public abstract Image getImage();
-    public abstract Tile createInstance(BoardCoordinate pos);  
+    public abstract Tile createInstance(BoardCoordinate pos, int keyCode);  
 };

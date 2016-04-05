@@ -25,6 +25,7 @@ public class EditorPanel extends JPanel {
     private Editor editor;
     private JButton saveButton, menuButton;
     private List<TileButton> tileButtons;
+    private TileButton selectedTileButton = null;
     
     public EditorPanel()
     {
@@ -61,7 +62,12 @@ public class EditorPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             TileButton source = (TileButton)e.getSource();
-        }
-        
+            if(selectedTileButton != null) {
+                selectedTileButton.setSelectedState(false);
+            }
+            selectedTileButton = source;
+            source.setSelectedState(true);
+            editor.setTileType(source.getType(), 1);
+        }    
     }
 }
