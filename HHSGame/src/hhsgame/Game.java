@@ -43,6 +43,8 @@ public class Game{
     public final static int COLS = 10;
     public final static int TILE_HEIGHT = 80;
     public final static int TILE_WIDTH = 80;
+    public final static int MENU_PADDING = 10;
+    public final static int BUTTON_HEIGHT = 60;
     public final static Font LABEL_FONT = new Font("Calibri", Font.BOLD, 22);
     
     // private interface variables
@@ -50,9 +52,6 @@ public class Game{
     
     protected final static int RIGHT_BOUND = TILE_WIDTH*COLS;
     protected final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
-    
-    public final static int MENU_PADDING = 10;
-    public final static int BUTTON_HEIGHT = 60;
     
     private final static int MAIN_MENU_WIDTH = 300;
     private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;

@@ -4,23 +4,19 @@ import java.io.*;
 import java.util.*;
 import static hhsgame.Game.*;
 
-
 public class LevelReader {
 
     private BufferedReader in = null;
     private final String fileName;
-    
     private final List<Level> levels = new ArrayList<>();
     
     
-    public LevelReader(String fileName) {
-
+public LevelReader(String fileName) {
         this.fileName = fileName;
         readLevels();
     }
     
-    private void openFile()
-    {
+    private void openFile(){
         try {
             in = new BufferedReader(new FileReader(fileName));
         } catch(Exception e) {
@@ -52,7 +48,7 @@ public class LevelReader {
         }
     }
     
-    public List<Level> getLevels() {
-        return levels;
+public List<Level> getLevels() {
+    return levels;
     }
 }
