@@ -16,14 +16,14 @@ import javax.swing.JComponent;
 public class Editor extends JComponent{
     
     private String levelName;
-    private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
-    private GameCharacter character;
+    private final Map<BoardCoordinate, Tile> levelLayout = new TreeMap<>();
+    private BoardCoordinate characterStart = null;
     private BoardCoordinate selected = null;
     private TileType currTileType = TileType.Empty;
     private int keyCode = 0;
     
     public Editor(int width, int height) {
-        reset(); // fills level with empty tiles
+        this.reset(); // fills level with empty tiles
         this.setSize(width, height);
         this.addMouseListener(new SelectListener());
     }
@@ -58,7 +58,10 @@ public class Editor extends JComponent{
         repaint();
     }
     
-    public void save(String filePath) throws IOException {
+    public void save(String filePath) throws Exception {
+        if(characterStart == null) {
+            throw new Exception("No character start");
+        }
         String[][] levelString = new String[ROWS][COLS];
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
@@ -74,6 +77,7 @@ public class Editor extends JComponent{
                 levelString[pos.getY()][pos.getX()] = "E  ";
             }
         }
+        levelString[characterStart.getY()][characterStart.getX()] = "E C";
         LevelWriter.writeLevel(filePath, levelString);
     }
     

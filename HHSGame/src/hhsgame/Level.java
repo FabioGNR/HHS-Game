@@ -8,12 +8,18 @@ import java.util.TreeMap;
 public class Level {
 
     private String[][] tileBits = new String[ROWS][COLS];
+    private final String filename;
     private BoardCoordinate start;
     
-    public Level(String[][] tileBits){
+    public Level(String[][] tileBits, String filename){
         this.tileBits = tileBits;
+        this.filename = filename;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+    
     public BoardCoordinate getStart() {
         return start;
     }

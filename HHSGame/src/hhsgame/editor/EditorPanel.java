@@ -144,8 +144,8 @@ public class EditorPanel extends JPanel {
                     try {
                         editor.save(filepath);
                     }
-                    catch(IOException ex) {
-
+                    catch(Exception ex) {
+                        //$TO-DO error message
                     }
                 }
             }

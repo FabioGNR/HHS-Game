@@ -48,10 +48,11 @@ public LevelReader(String fileName) {
 //        }
 //    }
     
-    private void readLevels() {
+    public void readLevels() {
+        levels.clear();
         openFile(fileName);
         String[][] lines = new String[ROWS][COLS];
-        List<String> levelNames = new ArrayList<String>();
+        List<String> levelNames = new ArrayList<>();
         String line;
         try {
             while((line = in.readLine()) != null) {
@@ -63,7 +64,7 @@ public LevelReader(String fileName) {
                 for(int i = 0; i < 10; i++) {
                     lines[i] = line.split(",");
                 }
-                levels.add(new Level(lines));
+                levels.add(new Level(lines, level));
                 lines = new String[ROWS][COLS];
             }
         } catch(IOException e) {

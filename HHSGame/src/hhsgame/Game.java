@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -67,6 +68,8 @@ public class Game{
     private static JFrame frame;
     private static CardLayout containerLayout;
     private static JPanel gamePanel, menuPanel, editorPanel, containerPanel;
+    private static JComboBox levelSelect;
+    private static JButton startButton;
 
     private static final LevelReader reader = new LevelReader("levels.txt");
     
@@ -99,25 +102,12 @@ public class Game{
         menuPanel = new JPanel();     
         menuPanel.setLayout(null);
         
-        JButton startButton = new JButton();
+        startButton = new JButton();
         startButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         startButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING);
-        startButton.setText("STARTE DIE SPIELE!");
                
-        Integer[] levelList = new Integer[reader.getLevels().size()];     
-        System.out.println("levelCount: "+reader.getLevels().size());
-        for(int i = 1; i <= levelList.length; i++) {
-            levelList[i-1] = i;
-        }
-        
-        JComboBox levelSelect = new JComboBox(levelList);
-        if(levelList.length == 0) {
-            startButton.setEnabled(false);
-            startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
-            levelSelect.setEnabled(false);
-        } else {
-            levelSelect.setSelectedIndex(0);
-        }
+        levelSelect = new JComboBox();
+        fillLevelList();
         levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
         JButton editorButton = new JButton();
@@ -129,6 +119,30 @@ public class Game{
         menuPanel.add(levelSelect);
         menuPanel.add(startButton);
         menuPanel.add(editorButton);
+    }
+    
+    private static void fillLevelList() {
+        levelSelect.removeAllItems();
+        reader.readLevels();
+        List<Level> levels = reader.getLevels();    
+        System.out.println("levelCount: "+levels.size());
+        for(int i = 0; i < levels.size(); i++) {
+            String name = levels.get(i).getFilename();
+            if(name.contains(".")) {
+                name = name.replace(".lvl", "");
+            }
+            levelSelect.addItem(name);
+        }       
+        if(levelSelect.getItemCount() == 0) {
+            startButton.setEnabled(false);
+            startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
+            levelSelect.setEnabled(false);
+        } else {
+            startButton.setEnabled(true);
+            levelSelect.setEnabled(true);
+            startButton.setText("STARTE DIE SPIELE!");
+            levelSelect.setSelectedIndex(0);
+        }
     }
     
     private static void createGamePanel() {
@@ -159,10 +173,17 @@ public class Game{
         return button;
     }
     
+    private static void openMenu() {
+        // recheck for levels
+        fillLevelList();
+        // show the card
+        containerLayout.show(containerPanel, MENU_CARD_ID);
+    }
+    
     static class MenuOpener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            containerLayout.show(containerPanel, MENU_CARD_ID);    
+            openMenu();
         }
     }
     
@@ -180,7 +201,7 @@ public class Game{
             } else if(action == ButtonAction.Reset) {
                 board.reset(reader);
             } else if(action == ButtonAction.Menu) {
-                containerLayout.show(containerPanel, MENU_CARD_ID);  
+                openMenu(); 
             }
         }      
     }
