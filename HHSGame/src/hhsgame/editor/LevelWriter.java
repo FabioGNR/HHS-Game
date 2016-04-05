@@ -31,4 +31,15 @@ public class LevelWriter {
         }
         writer.close();       
     }
+    
+    public static void addLevel(String filePath) {
+        try {
+            FileWriter writer = new FileWriter("levels.txt");
+            writer.append(filePath);
+            writer.append("\r\n");
+        } catch(IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
 }
