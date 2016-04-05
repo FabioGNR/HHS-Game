@@ -41,3 +41,14 @@ E  ,W  ,W  ,W  ,W  ,W  ,W  ,W  ,E  ,E
 E  ,B 2,E  ,E  ,E  ,E  ,E  ,E  ,W  ,E C
 E  ,W  ,W  ,W  ,W  ,W  ,W  ,E  ,W  ,W  
 E  ,E  ,E  ,K 1,E  ,K 3,W  ,K 5,B 1,F  
+
+E  ,K 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,K 5,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 5,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,K 3,W  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,B 4,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,W  ,E  ,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E C,K 4,E  
+E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,B 4,F  
