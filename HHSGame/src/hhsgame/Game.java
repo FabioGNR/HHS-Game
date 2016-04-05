@@ -1,5 +1,6 @@
 package hhsgame;
 
+import hhsgame.editor.EditorPanel;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,6 @@ public class Game{
             }  
         };     
         public abstract BoardCoordinate getCoordinate(BoardCoordinate pos);
-  
     };
     // public static variables
     public final static int ROWS = 10;
@@ -46,12 +46,11 @@ public class Game{
     public final static int MENU_PADDING = 10;
     public final static int BUTTON_HEIGHT = 60;
     public final static Font LABEL_FONT = new Font("Calibri", Font.BOLD, 22);
+    public final static int RIGHT_BOUND = TILE_WIDTH*COLS;
+    public final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
+    public final static int MENU_MARGIN = 200;    
     
     // private interface variables
-    private final static int MENU_MARGIN = 200;
-    
-    protected final static int RIGHT_BOUND = TILE_WIDTH*COLS;
-    protected final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
     
     private final static int MAIN_MENU_WIDTH = 300;
     private final static int MAIN_MENU_HEIGHT = BUTTON_HEIGHT;
@@ -61,12 +60,13 @@ public class Game{
     
     private final static String GAME_CARD_ID = "GameCard";
     private final static String MENU_CARD_ID = "MenuCard";
+    private final static String EDITOR_CARD_ID = "EditorCard";
     //
     
     private static GameBoard board;
     private static JFrame frame;
     private static CardLayout containerLayout;
-    private static JPanel gamePanel, menuPanel, containerPanel;
+    private static JPanel gamePanel, menuPanel, editorPanel, containerPanel;
 
     private static final LevelReader reader = new LevelReader("levels.txt");
     
@@ -83,11 +83,13 @@ public class Game{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         createGamePanel();
+        editorPanel = new EditorPanel(new MenuOpener(), FRAME_WIDTH, FRAME_HEIGHT);
         createMenuPanel();
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
         containerPanel.add(menuPanel, MENU_CARD_ID);
         containerPanel.add(gamePanel, GAME_CARD_ID);
+        containerPanel.add(editorPanel, EDITOR_CARD_ID);
         frame.add(containerPanel);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -118,10 +120,15 @@ public class Game{
         }
         levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
-        
+        JButton editorButton = new JButton();
+        editorButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+        editorButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT);
+        editorButton.setText("STARTE DIE EDITOR!");        
+        editorButton.addActionListener(new EditorButtonListener());
         startButton.addActionListener(new StartButtonListener(levelSelect));
         menuPanel.add(levelSelect);
         menuPanel.add(startButton);
+        menuPanel.add(editorButton);
     }
     
     private static void createGamePanel() {
@@ -152,6 +159,13 @@ public class Game{
         return button;
     }
     
+    static class MenuOpener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            containerLayout.show(containerPanel, MENU_CARD_ID);    
+        }
+    }
+    
     // Maybe not static? Was necessary for the ButtonSetup.
     static class ButtonClickListener implements ActionListener{
         ButtonAction action;
@@ -166,9 +180,16 @@ public class Game{
             } else if(action == ButtonAction.Reset) {
                 board.reset(reader);
             } else if(action == ButtonAction.Menu) {
-                containerLayout.show(containerPanel, MENU_CARD_ID);
+                containerLayout.show(containerPanel, MENU_CARD_ID);  
             }
         }      
+    }
+    
+    static class EditorButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            containerLayout.show(containerPanel, EDITOR_CARD_ID);
+        }
     }
     
     static class StartButtonListener implements ActionListener {      

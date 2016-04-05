@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 E C,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  
 E  ,E  ,B 3,B 3,E  ,E  ,E  ,E  ,E  ,E  
@@ -52,3 +53,5 @@ E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,E
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,W  ,E  ,E  
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,E C,K 4,E  
 E  ,E  ,E  ,E  ,E  ,E  ,E  ,E  ,B 4,F  
+=======
+>>>>>>> origin/master

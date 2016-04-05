@@ -30,4 +30,8 @@ public class Finish extends Tile{
     {
         return true;
     }
+
+    public static Image getImage() {
+        return image;
+    }
 }

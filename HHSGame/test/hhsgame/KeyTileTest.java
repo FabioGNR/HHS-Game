@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class KeyTileTest {
     
-    private static GameCharacter character;
+    private GameCharacter character;
     private KeyTile tile;
     
     public KeyTileTest() {
@@ -27,7 +27,7 @@ public class KeyTileTest {
     
     @BeforeClass
     public static void setUpClass() {
-        character = new GameCharacter(new EmptyTile(new BoardCoordinate(1,1)));
+        
     }
     
     @AfterClass
@@ -36,6 +36,7 @@ public class KeyTileTest {
     
     @Before
     public void setUp() {
+        character = new GameCharacter(new EmptyTile(new BoardCoordinate(1,1)));
         tile = new KeyTile(new BoardCoordinate(4,6), new Key(2));
     }
     
