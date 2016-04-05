@@ -9,6 +9,10 @@ import hhsgame.Barricade;
 import hhsgame.EmptyTile;
 import static hhsgame.Game.*;
 import hhsgame.KeyTile;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -20,8 +24,7 @@ public class EditorPanel extends JPanel {
     
     private Editor editor;
     private JButton saveButton, menuButton;
-    private TileButton emptyTileButton, keyTileButton, barricadeButton;
-    private TileButton wallButton, finishButton;
+    private List<TileButton> tileButtons;
     
     public EditorPanel()
     {
@@ -35,11 +38,30 @@ public class EditorPanel extends JPanel {
         
     }
     
+    private void createTileButton(TileType type, int y)
+    {
+        int tileButtonX = RIGHT_BOUND+MENU_PADDING;
+        TileButton button = new TileButton(type, tileButtonX, y);
+        tileButtons.add(button);
+    }
+    
     private void createTileButtons()
     {
-        emptyTileButton = new TileButton(EmptyTile.class, EmptyTile.getImage());
-        keyTileButton = new TileButton(KeyTile.class, KeyTile.getImage());
-        barricadeButton = new TileButton(Barricade.class, Barricade.getImage());
+        tileButtons = new ArrayList<>();
+        int startY = MENU_PADDING*3+BUTTON_HEIGHT*2;
+        createTileButton(TileType.Empty, startY);
+        createTileButton(TileType.Key, startY+TILE_HEIGHT+MENU_PADDING);
+        createTileButton(TileType.Barricade, startY+(TILE_HEIGHT+MENU_PADDING)*2);
+        createTileButton(TileType.Wall, startY+(TILE_HEIGHT+MENU_PADDING)*3);
+        createTileButton(TileType.Finish, startY+(TILE_HEIGHT+MENU_PADDING)*4);   
+    }
+    
+    protected class TileButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            TileButton source = (TileButton)e.getSource();
+        }
         
     }
 }

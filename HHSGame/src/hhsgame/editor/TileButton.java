@@ -16,21 +16,34 @@ import java.awt.Color;
  * @author Fabio
  */
 public class TileButton extends JComponent {
-    private final Class type;
-    private final Image image;
+    private final TileType type;
+    boolean selected = false;
     
-    public TileButton(Class type, Image img)
+    public TileButton(TileType type, int x, int y)
     {
         this.type = type;
-        this.image = img;
+        this.setLocation(x, y);
         this.setSize(TILE_WIDTH, TILE_HEIGHT);
+    }
+    
+    public void setSelectedState(boolean state)
+    {
+        selected = state;
+        repaint();
     }
     
     @Override
     protected void paintComponent(Graphics g)
     {
+        Image image = type.getImage();
         if(image == null)
             return;
         g.drawImage(image, 0, 0, TILE_WIDTH, TILE_HEIGHT, null);
+        if(selected)
+        {
+            g.setColor(Color.RED);
+            g.drawRect(0,0, TILE_WIDTH, TILE_HEIGHT);
+            g.setColor(Color.BLACK);
+        }
     }
 }
