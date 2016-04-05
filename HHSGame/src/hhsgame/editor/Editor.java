@@ -16,6 +16,7 @@ public class Editor extends JComponent{
     private Map<BoardCoordinate, Tile> levelLayout = new TreeMap<BoardCoordinate, Tile>();
     private GameCharacter character;
     private BoardCoordinate selected = null;
+    private TileType currTileType;
     
     public Editor() {
         for(int y = 0; y < ROWS; y++) {
@@ -24,6 +25,7 @@ public class Editor extends JComponent{
                 levelLayout.put(currPos, new EmptyTile(currPos));
             }
         }
+        this.addMouseListener(new SelectListener());
     }
     
     @Override
@@ -41,6 +43,14 @@ public class Editor extends JComponent{
         }
     }
     
+    public void setTileType(TileType type) {
+        currTileType = type;
+        Tile currTile;
+        if(selected != null) {
+            currTile = currTileType.createInstance(selected);
+        }
+    }
+    
     public class SelectListener implements MouseListener {
 
         @Override
@@ -52,6 +62,7 @@ public class Editor extends JComponent{
                 selected = new BoardCoordinate(BoardX, BoardY);
             }
             
+            currTile = 
         }
 
         @Override
