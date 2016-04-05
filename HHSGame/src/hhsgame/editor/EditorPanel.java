@@ -80,9 +80,13 @@ public class EditorPanel extends JPanel {
     private void createTileButton(TileType type, int y)
     {
         int tileButtonX = RIGHT_BOUND+MENU_PADDING;
-        TileButton button = new TileButton(type, tileButtonX, y);
+        createTileButton(type, tileButtonX, y);
+    }
+    
+    private void createTileButton(TileType type, int x, int y) {
+        TileButton button = new TileButton(type, x, y);
         button.addMouseListener(new TileButtonListener());
-        add(button);
+        add(button); 
     }
     
     private void createTileButtons()
@@ -92,7 +96,8 @@ public class EditorPanel extends JPanel {
         createTileButton(TileType.Key, startY+TILE_HEIGHT+MENU_PADDING);
         createTileButton(TileType.Barricade, startY+(TILE_HEIGHT+MENU_PADDING)*2);
         createTileButton(TileType.Wall, startY+(TILE_HEIGHT+MENU_PADDING)*3);
-        createTileButton(TileType.Finish, startY+(TILE_HEIGHT+MENU_PADDING)*4);   
+        createTileButton(TileType.Finish, startY+(TILE_HEIGHT+MENU_PADDING)*4);
+        createTileButton(TileType.Start, RIGHT_BOUND+MENU_PADDING*2+TILE_WIDTH, startY);
     }
     
     private int getKeyCode() {
