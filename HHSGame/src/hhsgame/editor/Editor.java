@@ -79,6 +79,7 @@ public class Editor extends JComponent{
         if(characterStart == null) {
             throw new Exception("Add a character start before saving your level.");
         }
+        boolean hasFinish = false;
         String[][] levelString = new String[ROWS][COLS];
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
@@ -90,9 +91,13 @@ public class Editor extends JComponent{
                 levelString[pos.getY()][pos.getX()] = "W  ";
             } else if(currTile instanceof Finish) {
                 levelString[pos.getY()][pos.getX()] = "F  ";
+                hasFinish = true;
             } else {
                 levelString[pos.getY()][pos.getX()] = "E  ";
             }
+        }
+        if(!hasFinish) {
+            throw new Exception("Add a finish before saving your level.");
         }
         levelString[characterStart.getY()][characterStart.getX()] = "E C";
         LevelWriter.writeLevel(filePath, levelString);

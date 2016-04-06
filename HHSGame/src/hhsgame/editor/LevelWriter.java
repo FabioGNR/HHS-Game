@@ -6,10 +6,13 @@
 package hhsgame.editor;
 
 import hhsgame.Game;
+import static hhsgame.Game.LEVEL_LIST_FILE;
 import hhsgame.Level;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -38,6 +41,8 @@ public class LevelWriter {
         addLevel(filepath);
     }
     
+    
+    
     public static void addLevel(String filePath) throws Exception {
         List<Level> levels = Game.getLevelReader().getLevels();
         for(Level level : levels) {
@@ -47,7 +52,7 @@ public class LevelWriter {
             }
         } 
         try {
-            FileWriter writer = new FileWriter("levels.txt", true);
+            FileWriter writer = new FileWriter(LEVEL_LIST_FILE, true);
             writer.append(filePath);
             writer.append("\r\n");
             writer.close();
@@ -56,5 +61,24 @@ public class LevelWriter {
             e.printStackTrace();
             return;
         }
+    }
+    
+    public static void removeLevel(Level levelToRemove) {
+        List<Level> list = Game.getLevelReader().getLevels();
+        list.remove(levelToRemove);
+         try {
+            FileWriter writer = new FileWriter(LEVEL_LIST_FILE);
+            for(Level level : list) {
+                writer.append(level.getFilename() + "\r\n");
+            }
+            writer.close();
+            File levelFile = new File(levelToRemove.getFilename());
+            Files.delete(levelFile.toPath());
+           
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }    
+        
     }
 }

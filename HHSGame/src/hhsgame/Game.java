@@ -1,6 +1,7 @@
 package hhsgame;
 
 import hhsgame.editor.EditorPanel;
+import hhsgame.editor.LevelWriter;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Game{
@@ -50,6 +52,7 @@ public class Game{
     public final static int RIGHT_BOUND = TILE_WIDTH*COLS;
     public final static int BOTTOM_BOUND = TILE_HEIGHT*ROWS;
     public final static int MENU_MARGIN = 200;    
+    public final static String LEVEL_LIST_FILE = "levels.txt";
     
     // private interface variables
     
@@ -70,13 +73,13 @@ public class Game{
     private static JPanel gamePanel, menuPanel, containerPanel;
     private static EditorPanel editorPanel;
     private static JComboBox levelSelect;
-    private static JButton startButton;
+    private static JButton startButton, removeButton;
 
-    private static final LevelReader reader = new LevelReader("levels.txt");
+    private static final LevelReader reader = new LevelReader(LEVEL_LIST_FILE);
     
     // An enum to limit the actions a button can have because Strings are ugly for that
     enum ButtonAction{
-        Reset, Pause, Menu, Start
+        Reset, Pause, Menu, Start, Remove, Editor
     }
     
     public static void main(String[] args) {
@@ -106,20 +109,25 @@ public class Game{
         startButton = new JButton();
         startButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         startButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING);
-               
+        startButton.addActionListener(new ButtonClickListener(ButtonAction.Start));               
         levelSelect = new JComboBox();
-        fillLevelList();
         levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
         JButton editorButton = new JButton();
         editorButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         editorButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT);
         editorButton.setText("STARTE DIE EDITOR!");        
-        editorButton.addActionListener(new EditorButtonListener());
-        startButton.addActionListener(new ButtonClickListener(ButtonAction.Start));
+        editorButton.addActionListener(new ButtonClickListener(ButtonAction.Editor));
+        removeButton = new JButton();
+        removeButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+        removeButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*3+MAIN_MENU_HEIGHT*2);
+        removeButton.setText("ENTFERNE STUFEN?");        
+        removeButton.addActionListener(new ButtonClickListener(ButtonAction.Remove)); 
+        menuPanel.add(removeButton);
         menuPanel.add(levelSelect);
         menuPanel.add(startButton);
         menuPanel.add(editorButton);
+        fillLevelList();
     }
     
     private static Level getSelectedLevel() {
@@ -148,11 +156,13 @@ public class Game{
         }       
         if(levelSelect.getItemCount() == 0) {
             startButton.setEnabled(false);
+            removeButton.setEnabled(false);
             startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
             levelSelect.setEnabled(false);
         } else {
             startButton.setEnabled(true);
             levelSelect.setEnabled(true);
+            removeButton.setEnabled(true);
             startButton.setText("STARTE DIE SPIELE!");
             levelSelect.setSelectedIndex(0);
         }
@@ -214,7 +224,25 @@ public class Game{
             } else if(action == ButtonAction.Reset) {
                 board.reset();
             } else if(action == ButtonAction.Menu) {
-                openMenu(); 
+                openMenu();
+            } else if(action == ButtonAction.Editor) {
+                containerLayout.show(containerPanel, EDITOR_CARD_ID);
+                Level level = getSelectedLevel();
+                if(level != null) {
+                    editorPanel.openLevel(level);
+                } else {
+                    editorPanel.resetLevel();
+                }
+            } else if(action == ButtonAction.Remove) {
+                Level level = getSelectedLevel();
+                if(level != null) {
+                    int reply = JOptionPane.showConfirmDialog(containerPanel, 
+                            "Are you sure you want to delete \""+level.getFilename()+"\"?");
+                    if(reply == JOptionPane.YES_OPTION) {
+                        LevelWriter.removeLevel(level);
+                        fillLevelList();
+                    }
+                }
             } else if(action == ButtonAction.Start) {
                 Level level = getSelectedLevel();
                 if(level != null) {
@@ -225,18 +253,5 @@ public class Game{
                 }
             }
         }      
-    }
-    
-    static class EditorButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            containerLayout.show(containerPanel, EDITOR_CARD_ID);
-            Level level = getSelectedLevel();
-            if(level != null) {
-                editorPanel.openLevel(level);
-            } else {
-                editorPanel.resetLevel();
-            }
-        }
     }
 }
