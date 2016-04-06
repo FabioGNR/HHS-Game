@@ -33,8 +33,8 @@ public class GameBoardTest {
     
     @Before
     public void setUp() {
-        reader = new LevelReader("level5.txt");
-        board.loadLevel(reader, 0);
+        reader = new LevelReader("testLevels.txt");
+        board.loadLevel(reader.getLevels().get(0));
         character = board.getCharacter();
 
     }
