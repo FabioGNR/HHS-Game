@@ -5,9 +5,12 @@
  */
 package hhsgame.editor;
 
+import hhsgame.Game;
+import hhsgame.Level;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -36,11 +39,19 @@ public class LevelWriter {
     }
     
     public static void addLevel(String filePath) {
+        List<Level> levels = Game.getLevelReader().getLevels();
+        for(Level level : levels) {
+            if(level.getFilename().equals(filePath)) {
+                // don't add to file because it's already there
+                return;
+            }
+        } 
         try {
             FileWriter writer = new FileWriter("levels.txt", true);
             writer.append(filePath);
             writer.append("\r\n");
             writer.close();
+            Game.getLevelReader().readLevels();
         } catch(IOException e) {
             e.printStackTrace();
             return;

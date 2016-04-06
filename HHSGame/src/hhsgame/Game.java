@@ -128,7 +128,10 @@ public class Game{
             return null;
         }
         return reader.getLevels().get(level);
-        
+    }
+
+    public static LevelReader getLevelReader() {
+        return reader;
     }
     
     private static void fillLevelList() {
