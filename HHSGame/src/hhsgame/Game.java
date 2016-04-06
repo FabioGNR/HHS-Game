@@ -146,7 +146,6 @@ public class Game{
         levelSelect.removeAllItems();
         reader.readLevels();
         List<Level> levels = reader.getLevels();    
-        System.out.println("levelCount: "+levels.size());
         for (Level level : levels) {
             String name = level.getFilename();
             if(name.contains(".")) {
