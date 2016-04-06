@@ -83,6 +83,10 @@ public class EditorPanel extends JPanel {
         levelNameField.setText(level.getFilename().replace(".lvl", ""));
     }
     
+    public void resetLevel() {
+        editor.reset();
+    }
+    
     private void createTileButton(TileType type, int y)
     {
         int tileButtonX = RIGHT_BOUND+MENU_PADDING;
@@ -161,7 +165,7 @@ public class EditorPanel extends JPanel {
                 }
             }
             else if(action == ButtonAction.Reset) {
-                editor.reset();
+                resetLevel();
             }
         }
     }
