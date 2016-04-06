@@ -21,12 +21,11 @@ public LevelReader(String fileName) {
             in = new BufferedReader(new FileReader(fileName));
         } catch(Exception e) {
             in = null;
-            System.out.println("File was not found.");
-            System.exit(0);
+            System.out.println("Level list file was not found.");
         }
     }
     
-    public void readLevels() {
+    public void readLevels() {        
         levels.clear();
         openFile(fileName);
         String[][] lines = new String[ROWS][COLS];
@@ -45,7 +44,7 @@ public LevelReader(String fileName) {
                 levels.add(new Level(lines, level));
                 lines = new String[ROWS][COLS];
             }
-        } catch(IOException e) {
+        } catch(Exception e) {
             return;
         }
     }
