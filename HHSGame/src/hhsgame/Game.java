@@ -124,8 +124,14 @@ public class Game{
     
     private static Level getSelectedLevel() {
         int level = levelSelect.getSelectedIndex();
+        if(level == -1) {
+            return null;
+        }
         return reader.getLevels().get(level);
-        
+    }
+
+    public static LevelReader getLevelReader() {
+        return reader;
     }
     
     private static void fillLevelList() {
@@ -210,10 +216,13 @@ public class Game{
             } else if(action == ButtonAction.Menu) {
                 openMenu(); 
             } else if(action == ButtonAction.Start) {
-                containerLayout.show(containerPanel, GAME_CARD_ID);
-                board.grabFocus();
-                board.loadLevel(getSelectedLevel());
-                board.repaint();   
+                Level level = getSelectedLevel();
+                if(level != null) {
+                    containerLayout.show(containerPanel, GAME_CARD_ID);
+                    board.grabFocus();
+                    board.loadLevel(level);
+                    board.repaint();   
+                }
             }
         }      
     }
@@ -222,7 +231,12 @@ public class Game{
         @Override
         public void actionPerformed(ActionEvent e) {
             containerLayout.show(containerPanel, EDITOR_CARD_ID);
-            editorPanel.openLevel(getSelectedLevel());
+            Level level = getSelectedLevel();
+            if(level != null) {
+                editorPanel.openLevel(level);
+            } else {
+                editorPanel.resetLevel();
+            }
         }
     }
 }
