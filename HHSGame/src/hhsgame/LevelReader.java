@@ -45,6 +45,8 @@ public LevelReader(String fileName) {
                 levelNames.add(line);
             }
             for(String level : levelNames) {
+                if(level.isEmpty()) // empty lines should be skipped
+                    continue;
                 openLevelFile(level);                
                 for(int i = 0; i < 10; i++) {
                     line = in.readLine();
