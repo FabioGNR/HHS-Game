@@ -43,9 +43,9 @@ public class BoardCoordinateTest {
      */
     @Test
     public void testGetX() {
+        //test coordinate.getX() return the right value x of coordinate
         BoardCoordinate coordinate = new BoardCoordinate(5, 4);
         assertEquals("expected getX() is 5", coordinate.getX(), 5);
-        
     }
 
     /**
@@ -53,6 +53,7 @@ public class BoardCoordinateTest {
      */
     @Test
     public void testGetY() {
+        //test coordinate.getY() return the right value y of coordinate
         BoardCoordinate coordinate = new BoardCoordinate(4,5);
         assertEquals("expected getY() is 5", coordinate.getY(), 5);
     }
@@ -64,8 +65,9 @@ public class BoardCoordinateTest {
     public void testGetLeft() {
         BoardCoordinate coordinate = new BoardCoordinate(5, 6);
         BoardCoordinate coordinate2 = new BoardCoordinate(4, 6);
+        //
         assertEquals("expected: Coordinate.getLeft = coordinate2",0, coordinate.getLeft().compareTo(coordinate2));
-        //        assertEquals("getLeft is not 4", coordinate.getLeft().getX(), 4);
+
         BoardCoordinate coordinate3 = new BoardCoordinate(0,6);
         assertEquals("expected: Coordinate3.getLeft(), x = 0", 0, coordinate3.compareTo(coordinate3.getLeft()));
 
@@ -79,7 +81,7 @@ public class BoardCoordinateTest {
         BoardCoordinate coordinate = new BoardCoordinate(3,4);
         BoardCoordinate coordinate2 = new BoardCoordinate(4,4);
         assertEquals("expected: coordinate.getRight() = coordinate2", 0, coordinate.getRight().compareTo(coordinate2));
-        //assertEquals("x value of coordinate.getRight is 4", coordinate.getRight().getX(),4);
+
         BoardCoordinate coordinate3 = new BoardCoordinate(COLS-1,4);
         assertEquals("expected: coordinate3.getRight(), x = COLS-1", 0, coordinate3.compareTo(coordinate3.getRight()));
         
@@ -93,7 +95,7 @@ public class BoardCoordinateTest {
         BoardCoordinate coordinate = new BoardCoordinate(3,4);
         BoardCoordinate coordinate2 = new BoardCoordinate(3,5);
         assertEquals("expected: coordinate2.getUp() = coordinate", 0, coordinate2.getUp().compareTo(coordinate));
-        //assertEquals("value y of coordinate.getUp().getY() is 3", coordinate.getUp().getY(), 3);
+
         BoardCoordinate coordinate3 = new BoardCoordinate(3,0);
         assertEquals("expected: coordinate3.getUp(), y = 0", 0, coordinate3.compareTo(coordinate3.getUp()));
     }
@@ -106,7 +108,7 @@ public class BoardCoordinateTest {
         BoardCoordinate coordinate = new BoardCoordinate(5,7);
         BoardCoordinate coordinate2 = new BoardCoordinate(5,6);
         assertEquals("expected: coordinate2.getDown() = coordinate", 0, coordinate2.getDown().compareTo(coordinate));
-        //assertEquals("", 0, coordinate2.getDown().getY(),7);
+
         BoardCoordinate coordinate3 = new BoardCoordinate(5, ROWS-1);
         assertEquals("expected: coordinate3.getDown = ROWS-1", 0, coordinate3.compareTo(coordinate3.getDown()));
     }

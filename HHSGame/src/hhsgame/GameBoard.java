@@ -96,12 +96,12 @@ public class GameBoard extends JComponent {
 
     }
 
-    private void finishGame() {
+    protected void finishGame() {
         finished = true;
         winBox = new PopUpBox("Congratulations!");
     }
 
-    private void moveCharacter(MoveDirection dir) {
+    protected void moveCharacter(MoveDirection dir) {
         if (dir == null) {
             return;
         }
@@ -121,6 +121,8 @@ public class GameBoard extends JComponent {
     }
 
     //for unit testing
+
+
     public void moveCharacterTest(MoveDirection dir) {
         moveCharacter(dir);
     }
@@ -144,6 +146,7 @@ public class GameBoard extends JComponent {
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
 
     public GameCharacter getCharacter() {
         return character;
