@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Game{
+    
     public enum MoveDirection { 
         Up {
             @Override
@@ -85,7 +86,7 @@ public class Game{
     public static void main(String[] args) {
         board = new GameBoard(FRAME_WIDTH, FRAME_HEIGHT);
         frame = new JFrame();
-        frame.setTitle("Key Game");
+        frame.setTitle("Link bust out of prison");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -130,6 +131,7 @@ public class Game{
         fillLevelList();
     }
     
+    //return null if level is negative(-1) otherwise return level selected
     private static Level getSelectedLevel() {
         int level = levelSelect.getSelectedIndex();
         if(level == -1) {
@@ -138,20 +140,23 @@ public class Game{
         return reader.getLevels().get(level);
     }
 
+        
     public static LevelReader getLevelReader() {
         return reader;
     }
     
+    //first remove all items in comboBox then read levels in file and levels stored in List<Level>
+    //for each element(level) in levels, a name is returned and stored in name
     private static void fillLevelList() {
         levelSelect.removeAllItems();
         reader.readLevels();
         List<Level> levels = reader.getLevels();    
         for (Level level : levels) {
-            String name = level.getFilename();
-            if(name.contains(".")) {
-                name = name.replace(".lvl", "");
+            String levelName = level.getFilename();
+            if(levelName.contains(".")) {
+                levelName = levelName.replace(".lvlwhat", "");
             }
-            levelSelect.addItem(name);
+            levelSelect.addItem(levelName);
         }       
         if(levelSelect.getItemCount() == 0) {
             startButton.setEnabled(false);

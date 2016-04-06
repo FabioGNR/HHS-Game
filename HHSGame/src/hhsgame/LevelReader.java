@@ -10,7 +10,7 @@ public class LevelReader {
     private final String fileName;
     private final List<Level> levels = new ArrayList<>();
     
-    
+    //method readLevels() is used when LevelReader is instantiated and read the specified txt file
 public LevelReader(String fileName) {
         this.fileName = fileName;
         readLevels();
