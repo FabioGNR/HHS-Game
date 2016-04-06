@@ -102,4 +102,13 @@ public class BoardCoordinateTest {
         assertTrue("coordinate.compareTo(coordinate2) is less than 0", coordinate.compareTo(coordinate2) < 0);
     }
     
+    @Test
+    public void testConstructorLimit() {
+        BoardCoordinate coordinate = new BoardCoordinate(-5, -3);
+        assertEquals("coordinate with -5 as X in constructor should be adjusted to 0 as X", 0, coordinate.getX());
+        assertEquals("coordinate with -3 as Y in constructor should be adjusted to 0 as Y", 0, coordinate.getY());
+        coordinate = new BoardCoordinate(COLS+3, ROWS+4);
+        assertEquals("coordinate with COLS+ as X in constructor should be adjusted to COLS-1 as X", COLS-1, coordinate.getX());
+        assertEquals("coordinate with COLS+4 as Y in constructor should be adjusted to ROWS-1 as Y", ROWS-1, coordinate.getY());
+    }
 }
