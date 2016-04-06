@@ -15,6 +15,15 @@ public LevelReader(String fileName) {
         this.fileName = fileName;
         readLevels();
     }
+
+    private void openLevelFile(String fileName) {
+        try {
+            in = new BufferedReader(new FileReader(fileName));
+        } catch(Exception e) {
+            in = null;
+            System.out.println("Level \""+fileName+"\" file was not found.");
+        }        
+    }
     
     private void openFile(String fileName){
         try {
@@ -36,7 +45,7 @@ public LevelReader(String fileName) {
                 levelNames.add(line);
             }
             for(String level : levelNames) {
-                openFile(level);                
+                openLevelFile(level);                
                 for(int i = 0; i < 10; i++) {
                     line = in.readLine();
                     lines[i] = line.split(",");
@@ -49,7 +58,7 @@ public LevelReader(String fileName) {
         }
     }
     
-public List<Level> getLevels() {
-    return levels;
+    public List<Level> getLevels() {
+        return levels;
     }
 }

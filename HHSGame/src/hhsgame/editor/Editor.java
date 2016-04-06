@@ -65,6 +65,7 @@ public class Editor extends JComponent{
     }
     
     public void reset() {
+        characterStart = null;
         for(int y = 0; y < ROWS; y++) {
             for(int x = 0; x < COLS; x++) {
                 BoardCoordinate currPos = new BoardCoordinate(x, y);

@@ -30,7 +30,7 @@ public class GameBoard extends JComponent {
         grabFocus();
     }
 
-    public void loadLevel(LevelReader reader, Level level) {
+    public void loadLevel(Level level) {
         levelLayout = level.getLevelLayout();
         currentLevel = level;
         character = new GameCharacter(levelLayout.get(level.getStart()));
@@ -42,8 +42,8 @@ public class GameBoard extends JComponent {
         grabFocus();
     }
 
-    public void reset(LevelReader reader) {
-        loadLevel(reader, currentLevel);
+    public void reset() {
+        loadLevel(currentLevel);
     }
 
     @Override

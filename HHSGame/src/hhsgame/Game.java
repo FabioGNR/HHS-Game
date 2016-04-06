@@ -206,13 +206,13 @@ public class Game{
             if(action == ButtonAction.Pause) {
                 board.togglePause();
             } else if(action == ButtonAction.Reset) {
-                board.reset(reader);
+                board.reset();
             } else if(action == ButtonAction.Menu) {
                 openMenu(); 
             } else if(action == ButtonAction.Start) {
                 containerLayout.show(containerPanel, GAME_CARD_ID);
                 board.grabFocus();
-                board.loadLevel(reader, getSelectedLevel());
+                board.loadLevel(getSelectedLevel());
                 board.repaint();   
             }
         }      
