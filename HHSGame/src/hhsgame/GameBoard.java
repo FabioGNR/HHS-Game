@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import java.util.Map;
 import static hhsgame.Game.*;
 import java.awt.Dimension;
-import java.util.TreeMap;
 import javax.swing.JComponent;
 
 public class GameBoard extends JComponent {

@@ -7,7 +7,7 @@ import java.awt.Font;
 
 public class PopUpBox {
     
-    private String text;
+    private final String text;
     private final static Font font = new Font("Calibri", Font.BOLD, 68);
     
     public PopUpBox(String text) {

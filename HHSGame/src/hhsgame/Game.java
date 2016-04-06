@@ -147,8 +147,8 @@ public class Game{
         reader.readLevels();
         List<Level> levels = reader.getLevels();    
         System.out.println("levelCount: "+levels.size());
-        for(int i = 0; i < levels.size(); i++) {
-            String name = levels.get(i).getFilename();
+        for (Level level : levels) {
+            String name = level.getFilename();
             if(name.contains(".")) {
                 name = name.replace(".lvl", "");
             }

@@ -5,10 +5,6 @@
  */
 package hhsgame;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static hhsgame.Game.*;
@@ -18,25 +14,6 @@ import static hhsgame.Game.*;
  * @author RLH
  */
 public class BoardCoordinateTest {
-    
-    public BoardCoordinateTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getX method, of class BoardCoordinate.
@@ -111,22 +88,6 @@ public class BoardCoordinateTest {
 
         BoardCoordinate coordinate3 = new BoardCoordinate(5, ROWS-1);
         assertEquals("expected: coordinate3.getDown = ROWS-1", 0, coordinate3.compareTo(coordinate3.getDown()));
-    }
-
-    /**
-     * Test of getScreenX method, of class BoardCoordinate.
-     */
-    @Test
-    public void testGetScreenX() {
-        
-    }
-
-    /**
-     * Test of getScreenY method, of class BoardCoordinate.
-     */
-    @Test
-    public void testGetScreenY() {
-        
     }
 
     /**

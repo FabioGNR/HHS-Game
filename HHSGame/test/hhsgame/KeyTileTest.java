@@ -5,11 +5,7 @@
  */
 package hhsgame;
 
-import java.awt.Graphics;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,26 +18,10 @@ public class KeyTileTest {
     private GameCharacter character;
     private KeyTile tile;
     
-    public KeyTileTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-        
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         character = new GameCharacter(new EmptyTile(new BoardCoordinate(1,1)));
         tile = new KeyTile(new BoardCoordinate(4,6), new Key(2));
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -67,7 +47,8 @@ public class KeyTileTest {
     public void testGetReplacement() {
         Tile replacement = tile.getReplacement();
         assertTrue("keyTile should get replaced by an EmptyTile",replacement instanceof EmptyTile);
-        assertEquals("EmptyTile location should be the same as KeyTile", 0, replacement.getPos().compareTo(tile.getPos()));
+        assertEquals("EmptyTile location should be the same as KeyTile", 
+                0, replacement.getPos().compareTo(tile.getPos()));
         
     }
 
@@ -77,8 +58,7 @@ public class KeyTileTest {
     @Test
     public void testOnCharacterEnter() {
         tile.onCharacterEnter(character);
-        assertEquals("keyCode from tile should be the same as character.getKey()", tile.getKey().getKeyCode(), character.getKey().getKeyCode());
-        
+        assertEquals("keyCode from tile should be the same as character.getKey()", 
+                tile.getKey().getKeyCode(), character.getKey().getKeyCode());   
     }
-    
 }

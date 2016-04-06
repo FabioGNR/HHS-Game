@@ -5,20 +5,13 @@
  */
 package hhsgame.editor;
 
-import hhsgame.Barricade;
-import hhsgame.EmptyTile;
 import static hhsgame.Game.*;
-import hhsgame.KeyTile;
 import hhsgame.Level;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -40,8 +33,7 @@ public class EditorPanel extends JPanel {
     private TileButton selectedTileButton = null;
     
     public EditorPanel(ActionListener menuOpener, int width, int height)
-    {
-        
+    {        
         setLayout(null);
         levelNameField = new JTextField();
         levelNameField.setSize(MENU_MARGIN-(MENU_PADDING*2), TEXT_FIELD_HEIGHT);
@@ -71,7 +63,6 @@ public class EditorPanel extends JPanel {
         keyCodeField.setSize(MENU_MARGIN-(MENU_PADDING*2), TEXT_FIELD_HEIGHT);
         keyCodeField.getDocument().addDocumentListener(new KeyCodeFieldChanged());
         add(keyCodeField);
-
         createTileButtons();
         editor = new Editor(width, height);
         add(editor);
