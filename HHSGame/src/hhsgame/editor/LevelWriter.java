@@ -17,7 +17,7 @@ import java.util.List;
  * @author Fabio
  */
 public class LevelWriter {
-    public static void writeLevel(String filepath, String[][] tiles) throws IOException
+    public static void writeLevel(String filepath, String[][] tiles) throws Exception
     {
         filepath = filepath + ".lvl";
         FileWriter writer = new FileWriter(filepath);
@@ -38,12 +38,12 @@ public class LevelWriter {
         addLevel(filepath);
     }
     
-    public static void addLevel(String filePath) {
+    public static void addLevel(String filePath) throws Exception {
         List<Level> levels = Game.getLevelReader().getLevels();
         for(Level level : levels) {
             if(level.getFilename().equals(filePath)) {
                 // don't add to file because it's already there
-                return;
+                throw new Exception("Level with this name already exists.");
             }
         } 
         try {

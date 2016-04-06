@@ -77,7 +77,7 @@ public class Editor extends JComponent{
     
     public void save(String filePath) throws Exception {
         if(characterStart == null) {
-            throw new Exception("No character start");
+            throw new Exception("Add a character start before saving your level.");
         }
         String[][] levelString = new String[ROWS][COLS];
         for(BoardCoordinate pos : levelLayout.keySet()) {

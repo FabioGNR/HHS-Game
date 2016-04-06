@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -145,6 +146,10 @@ public class EditorPanel extends JPanel {
         }
     }
     
+    private void showMessageDialog(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    
     protected class ButtonListener implements ActionListener {
         private final ButtonAction action;
         protected ButtonListener(ButtonAction action) {
@@ -160,7 +165,7 @@ public class EditorPanel extends JPanel {
                         editor.save(filepath);
                     }
                     catch(Exception ex) {
-                        //$TO-DO error message
+                        showMessageDialog(ex.getMessage());
                     }
                 }
             }
