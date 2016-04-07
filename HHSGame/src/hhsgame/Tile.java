@@ -25,5 +25,6 @@ public abstract class Tile {
         return false;
     }
 
+    public abstract String saveToString();
     public abstract void paint(Graphics g);
 }

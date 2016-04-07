@@ -51,4 +51,9 @@ public class KeyTile extends Tile {
     public static Image getImage() {
         return image;
     }
+
+    @Override
+    public String saveToString() {
+        return "K " + key.getKeyLabel();
+    }
 }

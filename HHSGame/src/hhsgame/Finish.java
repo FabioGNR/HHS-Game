@@ -34,4 +34,9 @@ public class Finish extends Tile{
     public static Image getImage() {
         return image;
     }
+
+    @Override
+    public String saveToString() {
+        return "F  ";
+    }
 }

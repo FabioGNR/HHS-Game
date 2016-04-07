@@ -92,17 +92,9 @@ public class Editor extends JComponent{
         // and put an appropriate entry in to the String array
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
-            if(currTile instanceof KeyTile) {
-                levelString[pos.getY()][pos.getX()] = "K "+((KeyTile) currTile).getKey().getKeyCode();
-            } else if(currTile instanceof Barricade) {
-                levelString[pos.getY()][pos.getX()] = "B "+((Barricade) currTile).getKeyCode();
-            } else if(currTile instanceof Wall) {
-                levelString[pos.getY()][pos.getX()] = "W  ";
-            } else if(currTile instanceof Finish) {
-                levelString[pos.getY()][pos.getX()] = "F  ";
+            levelString[pos.getY()][pos.getX()] = currTile.saveToString();
+            if(currTile.isFinish()) {
                 hasFinish = true;
-            } else {
-                levelString[pos.getY()][pos.getX()] = "E  ";
             }
         }
         if(!hasFinish) {
@@ -125,14 +117,12 @@ public class Editor extends JComponent{
             
             if(BoardX < COLS && BoardY < ROWS) {
                 selected = new BoardCoordinate(BoardX, BoardY);
-            }
-            
-            Tile currTile;
-            if(selected != null) {
-                currTile = currTileType.createInstance(selected, keyCode);
+                Tile currTile = currTileType.createInstance(selected, keyCode);
                 levelLayout.put(selected, currTile);
                 if(currTileType == TileType.Start) {
                     characterStart = selected;
+                } else if(selected.equals(characterStart)) {
+                    characterStart = null;
                 }
             }
             repaint();
