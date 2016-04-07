@@ -21,7 +21,8 @@ import java.awt.Image;
  * @author Fabio
  */
 public enum TileType {
-    
+    // every tile button has different kinds of behavior concerning the image
+    // with which it displays and the tile it returns.
     Empty{
 
         @Override

@@ -70,6 +70,7 @@ public class EditorPanel extends JPanel {
         repaint();
     }
     
+    // we load a level to edit
     public void openLevel(Level level) {
         editor.openLevel(level);
         levelNameField.setText(level.getFilename().replace(".lvl", ""));
@@ -91,6 +92,7 @@ public class EditorPanel extends JPanel {
         add(button); 
     }
     
+    // creating the different buttons for all the tiles
     private void createTileButtons()
     {
         int startY = MENU_PADDING*6+BUTTON_HEIGHT*3+TEXT_FIELD_HEIGHT*2;
@@ -102,6 +104,7 @@ public class EditorPanel extends JPanel {
         createTileButton(TileType.Start, RIGHT_BOUND+MENU_PADDING*2+TILE_WIDTH, startY);
     }
     
+    // extracting the keycode from the textfield
     private int getKeyCode() {
         String keyCodeStr = keyCodeField.getText();
         int keyCode;
@@ -117,6 +120,7 @@ public class EditorPanel extends JPanel {
         return keyCode;
     }
     
+    // detecting and handling a change in the keycode textfield
     protected class KeyCodeFieldChanged implements DocumentListener {
         @Override
         public void insertUpdate(DocumentEvent e) {
@@ -132,7 +136,7 @@ public class EditorPanel extends JPanel {
         public void changedUpdate(DocumentEvent e) {
             setKeyCode();
         }
-    
+        
         private void setKeyCode() {
             if(selectedTileButton != null) {
                 editor.setTileType(selectedTileButton.getType(), getKeyCode());
@@ -152,6 +156,8 @@ public class EditorPanel extends JPanel {
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            // if we pressed start, we get the text from the name field
+            // and save the level under that name, but only if it is not empty 
             if(action == ButtonAction.Save) {
                 String filepath = levelNameField.getText();
                 if(!filepath.isEmpty()) {
@@ -171,9 +177,8 @@ public class EditorPanel extends JPanel {
             }
         }
     }
-    
+    // detecting whether one of the side menu buttons was clicked and selecting it
     protected class TileButtonListener implements MouseListener {
-
         @Override
         public void mouseClicked(MouseEvent e) {
         }
@@ -181,6 +186,7 @@ public class EditorPanel extends JPanel {
         public void mousePressed(MouseEvent e) {
             TileButton source = (TileButton)e.getSource();
             if(selectedTileButton != null) {
+                // deselecting the previous button
                 selectedTileButton.setSelectedState(false);
             }
             selectedTileButton = source;
