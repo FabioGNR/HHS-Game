@@ -27,6 +27,7 @@ public class Editor extends JComponent{
         this.addMouseListener(new SelectListener());
     }
     
+    //Initiating the level we watn to edit
     public void openLevel(Level level) {
         levelLayout = level.getLevelLayout();
         characterStart = level.getStart();
@@ -38,6 +39,8 @@ public class Editor extends JComponent{
         for (Tile tile : levelLayout.values()) {
             tile.paint(g);
         }
+        
+        // if we have a tile selected, paint a red border around it.
         if(selected != null) {
             Graphics2D g2 = (Graphics2D)g;
             g2.setStroke(new BasicStroke(5));
@@ -46,6 +49,7 @@ public class Editor extends JComponent{
             g.setColor(Color.BLACK);
         }
         
+        // if we have placed the character, we paint it
         if(characterStart != null){
             int x = characterStart.getScreenX();
             int y = characterStart.getScreenY();
@@ -58,11 +62,13 @@ public class Editor extends JComponent{
         }
     }
     
+    // setting the tile type after we selected it from the side menu
     public void setTileType(TileType type, int keyCode) {
         currTileType = type;
         this.keyCode = keyCode;
     }
     
+    // clearing the board by filling it with empty tiles
     public void reset() {
         characterStart = null;
         for(int y = 0; y < ROWS; y++) {
@@ -74,12 +80,16 @@ public class Editor extends JComponent{
         repaint();
     }
     
+    // building the string array that LevelWriter will write from.
     public void save(String filePath) throws Exception {
+        // if we don't have a character, we can't save
         if(characterStart == null) {
             throw new Exception("Add a character start before saving your level.");
         }
         boolean hasFinish = false;
         String[][] levelString = new String[ROWS][COLS];
+        // for every entry in the map we check what kind of tile it is
+        // and put an appropriate entry in to the String array
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
             if(currTile instanceof KeyTile) {
