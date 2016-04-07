@@ -121,32 +121,6 @@ public class GameBoard extends JComponent {
 
     //for unit testing
 
-
-    public void moveCharacterTest(MoveDirection dir) {
-        moveCharacter(dir);
-    }
-
-    public boolean isPaused() {
-        return paused;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public boolean isLevelLoaded() {
-        return levelLoaded;
-    }
-
-    public Map<BoardCoordinate, Tile> getLevelLayout() {
-        return levelLayout;
-    }
-
-    public Level getCurrentLevel() {
-        return currentLevel;
-    }
-
-
     public GameCharacter getCharacter() {
         return character;
     }
