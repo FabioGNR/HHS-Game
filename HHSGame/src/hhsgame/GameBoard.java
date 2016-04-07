@@ -19,20 +19,20 @@ public class GameBoard extends JComponent {
     private GameCharacter character;
     private PopUpBox winBox = null;
     
-    //
     public GameBoard(int width, int height) {
         this.setSize(new Dimension(width, height));
         this.addKeyListener(new ControlListener());
     }
-    //paused is set from false to true
+
     public void togglePause() {
         paused = !paused;
         grabFocus();
     }
+    
     //levelLayout from Level class is stored in this.levelLayout and level is stored as currentLevel
-    //make character and put it in the startposition of levelLayout
-    //finished and pause are set to false, winBox to null, levelLoaded to true
-    //then repaint the level and grabFocus
+    //create GameCharacter and put it in the startposition of level
+    //resets all game state variables
+    //then repaint the level and grabFocus for key input
     public void loadLevel(Level level) {
         levelLayout = level.getLevelLayout();
         currentLevel = level;
@@ -44,7 +44,8 @@ public class GameBoard extends JComponent {
         repaint();
         grabFocus();
     }
-    //load currentLevel
+    
+    //reload currentLevel
     public void reset() {
         loadLevel(currentLevel);
     }
@@ -79,8 +80,8 @@ public class GameBoard extends JComponent {
                 return;
             }
             MoveDirection dir;
-            //connect keyBoard to GameBoard
-            //if the e.getKeyCode is equals to one of the KeyEvent value 
+            //connects keyBoard to GameBoard
+            //if the e.getKeyCode is equals to one of arrow keys 
             //make it 'move' in one of the 4 directions
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 dir = MoveDirection.Left;
@@ -93,7 +94,7 @@ public class GameBoard extends JComponent {
             } else {
                 return;
             }
-            moveCharacter(dir);//move the character
+            moveCharacter(dir);
         }
 
         @Override
@@ -101,7 +102,8 @@ public class GameBoard extends JComponent {
         }
 
     }
-    //sets finished to true and show winBox
+    
+    //sets finished to true and shows winBox
     protected void finishGame() {
         finished = true;
         winBox = new PopUpBox("Congratulations!");
@@ -114,14 +116,14 @@ public class GameBoard extends JComponent {
         currentPos = character.getCurrentTile().getPos();
         nextPos = dir.getCoordinate(currentPos);
         Tile nextTile = levelLayout.get(nextPos);
-        //check if the GameCharacter can enter or pass the nextTile
-        //replace another Tile on character enter
+        //check if the GameCharacter can enter the nextTile
+        //replace with another Tile on character enter ( not always a different Tile )
         if (nextTile.isPassable(character)) {
             nextTile.onCharacterEnter(character);
             Tile replacement = nextTile.getReplacement();
             levelLayout.put(nextPos, replacement);
             character.setCurrentTile(replacement);
-            //if Tile is Finish, end the game
+            //if Tile is a Finish, end the game
             if (replacement.isFinish()) {
                 finishGame();
             }

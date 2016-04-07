@@ -9,7 +9,7 @@ public class TileBit {
     public TileBit(String bit) {
         //Strings is changed to array of char
         char[] parts = bit.toCharArray();
-        //if parts length is greater than 0, parts[0] is type else 'E'
+        //if there's at least one character, read its type, otherwise fill with emptyTile 'E'
         if(parts.length > 0) {
             type = parts[0];
             //if third element in char array is an int parse to int and store in keyCode
@@ -33,6 +33,7 @@ public class TileBit {
     public boolean getStart() {
         return start;
     }
+    
     //try parsing a char to int, return true if it's an int else catch exception and return false
     private boolean isInt(char s) {
         try {

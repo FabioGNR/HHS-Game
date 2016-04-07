@@ -16,7 +16,7 @@ public class EmptyTile extends Tile{
     public boolean isPassable(GameCharacter character) {
         return true;
     }
-    //return if image is null therwise draw image
+    // draws the tile if image was loaded
     @Override
     public void paint(Graphics g) {
         if(image == null)
@@ -25,11 +25,12 @@ public class EmptyTile extends Tile{
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
-    //return image
+    
     public static Image getImage() {
         return image;
     }
     
+    // returns string that can be saved in a level file
     @Override
     public String saveToString() {
         return "E  ";

@@ -14,6 +14,7 @@ public class KeyTile extends Tile {
         super(pos);
         this.key = key;
     }
+    
     //GameCharacter can pass
     @Override
     public boolean isPassable(GameCharacter character) {
@@ -35,18 +36,19 @@ public class KeyTile extends Tile {
         int labelX = x + (TILE_WIDTH-50)/2;
         int labelY = y + (TILE_HEIGHT-20)/2;
         g.drawString(key.getKeyLabel(), labelX, labelY);
-//        g.setColor(Color.BLACK);
     }
     
     public Key getKey() {
         return key;
     }
+    
     //KeyTile gets replaced by a EmptyTile
     @Override
     public Tile getReplacement() {
         return new EmptyTile(pos);
     }
-    //key is set to character on enter
+    
+    //give the charater the key that's on this tile when the character enters it
     @Override
     public void onCharacterEnter(GameCharacter character) {
         character.setKey(key);
@@ -56,6 +58,7 @@ public class KeyTile extends Tile {
         return image;
     }
 
+    // returns string that can be saved in a level file
     @Override
     public String saveToString() {
         return "K " + key.getKeyLabel();

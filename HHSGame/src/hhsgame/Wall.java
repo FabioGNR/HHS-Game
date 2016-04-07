@@ -6,10 +6,12 @@ import static hhsgame.Game.*;
 
 public class Wall extends Tile{
     private static final Image image = ImageReader.getImage("wall.png");
+    
     //inherit position from superclass Tile
     public Wall(BoardCoordinate pos) {
         super(pos);
     }
+    
     //GameCharacter may not pass
     @Override
     public boolean isPassable(GameCharacter character) {
@@ -18,7 +20,7 @@ public class Wall extends Tile{
 
     @Override
     public void paint(Graphics g) {
-        //draw image if image is not null else return
+        //draw image if image didn't fail to load
         if(image == null)
             return;
         int x = pos.getScreenX();
@@ -30,6 +32,7 @@ public class Wall extends Tile{
         return image;
     }
 
+    // returns string that can be saved in a level file
     @Override
     public String saveToString() {
         return "W  ";

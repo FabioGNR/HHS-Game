@@ -6,17 +6,16 @@ public abstract class Tile {
 
     protected final BoardCoordinate pos;
 
-    //position Tile from BoardCoordinate. Subclasses inherit position from Tile
+    //create Tile from BoardCoordinate. Subclasses inherit position from Tile
     public Tile(BoardCoordinate pos) {
         this.pos = pos;
     }
 
-    //return position
     public BoardCoordinate getPos() {
         return pos;
     }
     
-    //Abstract methods are automatically inherited by subclasses and none abstracts methods are optional
+    //Abstract methods are required in subclasses and non-abstract methods are optional
     public abstract boolean isPassable(GameCharacter character);
 
     public Tile getReplacement() {
@@ -29,7 +28,8 @@ public abstract class Tile {
     public boolean isFinish() {
         return false;
     }
-
+    
+    // returns string that can be saved in a level file
     public abstract String saveToString();
 
     public abstract void paint(Graphics g);

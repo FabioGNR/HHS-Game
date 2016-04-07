@@ -4,7 +4,7 @@ public class Key{
     
     private final int keyCode;
     private final String keyLabel;
-    //each key has a keyCode and a label showing what key
+    //each key has a keyCode and a String representation for easy painting
     public Key(int keyCode) {
         this.keyCode = keyCode;
         keyLabel = Integer.toString(keyCode);

@@ -94,7 +94,7 @@ public class Game{
         editorPanel = new EditorPanel(new MenuOpener(), FRAME_WIDTH, FRAME_HEIGHT);
         createMenuPanel();
         //menuPanel, gamePanel and editorPanel added to containerPanel and finally to the frame
-        //containerLayout lets switching between panels possible
+        //containerLayout makes switching between panels possible
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
         containerPanel.add(menuPanel, MENU_CARD_ID);
@@ -125,7 +125,7 @@ public class Game{
         fillLevelList();
     }
     
-    //return null if level is negative(-1) otherwise return level selected
+    //return null if no level is selected otherwise returns selected level
     private static Level getSelectedLevel() {
         int level = levelBox.getSelectedIndex();
         if(level == -1) {
@@ -138,10 +138,10 @@ public class Game{
         return reader;
     }
     
-    //first remove all items in comboBox then read levels in file and levels stored in List<Level>
+    //first remove all items in comboBox then read levels in file
     //for each element(level) in levels, a name is returned and stored in levelName
-    //the if statement over contains removes the extension to show in the level list
-    //if there are no levels (i.e. itemCount in comboBox is 0) disable buttons, else enable and set index to 0
+    //remove the extension from the level name
+    //if there are no levels (i.e. itemCount in comboBox is 0) disable buttons, else enable and set selected index to 0
     private static void fillLevelList() {
         levelBox.removeAllItems();
         reader.readLevels();
@@ -197,7 +197,7 @@ public class Game{
         return button;
     }
     
-    //buttonSetup formenuPanel
+    //buttonSetup for menuPanel
     private static JButton menuPanelButton(int x, int y, String text, ButtonAction action){
         JButton button = new JButton();
         button.setLocation(x, y);
@@ -214,7 +214,8 @@ public class Game{
         // show the menuCard on containerPanel
         containerLayout.show(containerPanel, MENU_CARD_ID);
     }
-    //opens Menu 
+    
+    //opens Menu on button press
     static class MenuOpener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {

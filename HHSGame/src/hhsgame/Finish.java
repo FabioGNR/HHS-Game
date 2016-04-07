@@ -11,12 +11,13 @@ public class Finish extends Tile{
     public Finish(BoardCoordinate pos) {
         super(pos);
     }
-    //return value is, trueGameCharacter may pass
+    
+    //return value is true, GameCharacter may pass
     @Override
     public boolean isPassable(GameCharacter character) {
         return true;
     }
-    //return if image is null otherwise draw image
+    // draws the tile if image was loaded
     @Override
     public void paint(Graphics g) {
         if(image == null)
@@ -36,6 +37,7 @@ public class Finish extends Tile{
         return image;
     }
 
+    // returns string that can be saved in a level file
     @Override
     public String saveToString() {
         return "F  ";

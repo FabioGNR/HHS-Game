@@ -12,6 +12,8 @@ public class Level {
     private Map<BoardCoordinate, Tile> levelLayout = null;
     private BoardCoordinate start;
     
+    // initalize class with the Strings representing tiles 
+    // and the level's filename
     public Level(String[][] tileBits, String filename){
         this.tileBits = tileBits;
         this.filename = filename;
@@ -25,6 +27,8 @@ public class Level {
         return start;
     }
     
+    // returns a clone of the Map with Tiles, calling buildLevel if required
+    // returns a clone because we don't want our Map to be altered
     public Map<BoardCoordinate, Tile> getLevelLayout() {
         if(levelLayout == null) {
             buildLevel();
@@ -32,6 +36,7 @@ public class Level {
         return new TreeMap<>(levelLayout);
     }
     
+    // go through each TileBit and construct Tiles
     private void buildLevel(){
         levelLayout = new TreeMap<>();
         for(int y = 0; y < tileBits.length; y++){
@@ -52,6 +57,7 @@ public class Level {
                     System.out.println("Attempted Tile type not recognized: " + currentBit.getType());
                     debugPrint(x, y);
                 }
+                // place new tile in a Map
                 levelLayout.put(currentTile.getPos(), currentTile);
             }
         }

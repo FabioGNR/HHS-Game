@@ -15,15 +15,13 @@ public class Barricade extends Tile{
     public Barricade(BoardCoordinate pos, int code) {
         super(pos);
         barrKeyCode = code;
-        //barrKeyCode is parsed to string
+        //barrKeyCode is converted to string
         keyCodeLabel = Integer.toString(code);
     }
     
     @Override
     public boolean isPassable(GameCharacter character) {
-        int correctKey = character.getKey().getKeyCode();
         // return true when the character holds the correct key
-        //return character.hasKey() && correctKey() == barrKeyCode;
         return character.hasKey() && character.getKey().getKeyCode() == barrKeyCode;
     }
 
@@ -33,7 +31,7 @@ public class Barricade extends Tile{
 
     @Override
     public void paint(Graphics g) {
-        //whenever image is null, return
+        //whenever image is null, return because we can't draw without the image
         if(image == null)
             return;
         //position screenX and screenY from BoardCoordinate assigned to x and y
@@ -54,11 +52,11 @@ public class Barricade extends Tile{
     public Tile getReplacement() {
         return new EmptyTile(pos);
     }
-    //returns barricadeImage stored in image
     public static Image getImage() {
         return image;
     }
-    //
+    
+    // returns string that can be saved in a level file
     @Override
     public String saveToString() {
         return "B "+keyCodeLabel;

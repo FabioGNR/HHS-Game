@@ -21,19 +21,21 @@ public class GameCharacter{
     public Key getKey() {
         return this.key;
     }
-    //return true if key is not null, GameCharacter has the key
+    
     public boolean hasKey() {
         return this.key != null;
     }
-    //used by KeyTile to set key to GameCharacter
+
     public void setKey(Key key) {
         this.key = key;
     }
+    
     //return the tile (position) the GameCharacter is standing on currently
     public Tile getCurrentTile() {
         return currentTile;
     }
-    //sets the GameCharacter to a certain tile as his currentTile
+    
+    //sets the GameCharacter currentTile to a tile
     public void setCurrentTile(Tile currentTile) {
         this.currentTile = currentTile;
     }
@@ -43,10 +45,11 @@ public class GameCharacter{
     }
     
     public void paint(Graphics g)
-    {//return if image is null
+    {
+        //return if image was not loaded
         if(image == null)
             return;
-        //get currentTile position on the BoardCoordinate
+        //get currentTile position as screen coordinates
         int x = currentTile.getPos().getScreenX();
         int y = currentTile.getPos().getScreenY();
         
@@ -65,7 +68,6 @@ public class GameCharacter{
             int labelX = x + TILE_WIDTH-25;
             int labelY = y + (TILE_HEIGHT-20)/2;
             g.drawString(key.getKeyLabel(), labelX, labelY);
-//            g.setColor(Color.BLACK);
         }
             
     }
