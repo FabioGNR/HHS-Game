@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Game{
-    
+    //simplify the moveDirections
     public enum MoveDirection { 
         Up {
             @Override
@@ -73,8 +73,8 @@ public class Game{
     private static CardLayout containerLayout;
     private static JPanel gamePanel, menuPanel, containerPanel;
     private static EditorPanel editorPanel;
-    private static JComboBox levelSelect;
-    private static JButton startButton, removeButton;
+    private static JComboBox levelBox;
+    private static JButton startButton, removeButton, editorButton;
 
     private static final LevelReader reader = new LevelReader(LEVEL_LIST_FILE);
     
@@ -93,6 +93,8 @@ public class Game{
         createGamePanel();
         editorPanel = new EditorPanel(new MenuOpener(), FRAME_WIDTH, FRAME_HEIGHT);
         createMenuPanel();
+        //menuPanel, gamePanel and editorPanel added to containerPanel and finally to the frame
+        //containerLayout lets switching between panels possible
         containerLayout = new CardLayout();
         containerPanel = new JPanel(containerLayout);
         containerPanel.add(menuPanel, MENU_CARD_ID);
@@ -103,75 +105,69 @@ public class Game{
         frame.setVisible(true);
     }
     
-    private static void createMenuPanel() {
-        menuPanel = new JPanel();     
+    //Create mainMenuPanel, set size, location, text, add ButtonClickListener and add
+    //startButton, selectLevelBox, editorButton and removeButton to mainMenuPanel
+    private static void createMenuPanel(){
+        menuPanel = new JPanel();
         menuPanel.setLayout(null);
+    
+        levelBox = new JComboBox();
+        levelBox.setSize(MAIN_MENU_WIDTH,MAIN_MENU_HEIGHT);
+        levelBox.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2,(FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
+        menuPanel.add(levelBox);
+        startButton = menuPanelButton((FRAME_WIDTH-MAIN_MENU_WIDTH)/2,(FRAME_HEIGHT)/2+MENU_PADDING,
+                                        "Start",ButtonAction.Start);
         
-        startButton = new JButton();
-        startButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
-        startButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING);
-        startButton.addActionListener(new ButtonClickListener(ButtonAction.Start));               
-        levelSelect = new JComboBox();
-        levelSelect.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
-        levelSelect.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2-MENU_PADDING-MAIN_MENU_HEIGHT);
-        JButton editorButton = new JButton();
-        editorButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
-        editorButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT);
-        editorButton.setText("STARTE DIE EDITOR!");        
-        editorButton.addActionListener(new ButtonClickListener(ButtonAction.Editor));
-        removeButton = new JButton();
-        removeButton.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
-        removeButton.setLocation((FRAME_WIDTH-MAIN_MENU_WIDTH)/2, (FRAME_HEIGHT)/2+MENU_PADDING*3+MAIN_MENU_HEIGHT*2);
-        removeButton.setText("ENTFERNE STUFEN?");        
-        removeButton.addActionListener(new ButtonClickListener(ButtonAction.Remove)); 
-        menuPanel.add(removeButton);
-        menuPanel.add(levelSelect);
-        menuPanel.add(startButton);
-        menuPanel.add(editorButton);
+        editorButton = menuPanelButton((FRAME_WIDTH-MAIN_MENU_WIDTH)/2,(FRAME_HEIGHT)/2+MENU_PADDING*2+MAIN_MENU_HEIGHT,
+                                        "Editor",ButtonAction.Editor);
+        removeButton =menuPanelButton((FRAME_WIDTH-MAIN_MENU_WIDTH)/2,(FRAME_HEIGHT)/2+MENU_PADDING*3+MAIN_MENU_HEIGHT*2,
+                                        "Remove",ButtonAction.Remove);
         fillLevelList();
     }
     
     //return null if level is negative(-1) otherwise return level selected
     private static Level getSelectedLevel() {
-        int level = levelSelect.getSelectedIndex();
+        int level = levelBox.getSelectedIndex();
         if(level == -1) {
             return null;
         }
         return reader.getLevels().get(level);
     }
-
-        
+    
     public static LevelReader getLevelReader() {
         return reader;
     }
     
     //first remove all items in comboBox then read levels in file and levels stored in List<Level>
-    //for each element(level) in levels, a name is returned and stored in name
+    //for each element(level) in levels, a name is returned and stored in levelName
+    //dunno what contains does???
+    //if the itemCount in comboBox is 0 disable buttons else enable and set index to 0
     private static void fillLevelList() {
-        levelSelect.removeAllItems();
+        levelBox.removeAllItems();
         reader.readLevels();
         List<Level> levels = reader.getLevels();    
         for (Level level : levels) {
             String levelName = level.getFilename();
             if(levelName.contains(".")) {
-                levelName = levelName.replace(".lvlwhat", "");
+                levelName = levelName.replace(".lvl", "");
             }
-            levelSelect.addItem(levelName);
+            levelBox.addItem(levelName);
         }       
-        if(levelSelect.getItemCount() == 0) {
+        if(levelBox.getItemCount() == 0) {
             startButton.setEnabled(false);
             removeButton.setEnabled(false);
             startButton.setText("ES GIBT KEINE STUFEN GEFUNDEN!");
-            levelSelect.setEnabled(false);
+            levelBox.setEnabled(false);
         } else {
             startButton.setEnabled(true);
-            levelSelect.setEnabled(true);
+            levelBox.setEnabled(true);
             removeButton.setEnabled(true);
             startButton.setText("STARTE DIE SPIELE!");
-            levelSelect.setSelectedIndex(0);
+            levelBox.setSelectedIndex(0);
         }
     }
     
+    //create gamePanel, add gameboard, pause-,reset- and menuButton to it
     private static void createGamePanel() {
         gamePanel = new JPanel();
         gamePanel.setLayout(null);
@@ -191,22 +187,33 @@ public class Game{
                                   ButtonAction.Menu));
     }
     
+    //buttonSetup for gamePanel
     private static JButton buttonSetup(int x, int y, String text, ButtonAction action) {
         JButton button = new JButton();
         button.setLocation(x, y);
-        button.setSize( MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);
+        button.setSize(MENU_MARGIN-(MENU_PADDING*2), BUTTON_HEIGHT);
         button.setText(text);
         button.addActionListener(new ButtonClickListener(action));
+        return button;
+    }
+    
+    private static JButton menuPanelButton(int x, int y, String text, ButtonAction action){
+        JButton button = new JButton();
+        button.setLocation(x, y);
+        button.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+        button.setText(text);
+        button.addActionListener(new ButtonClickListener(action));
+        menuPanel.add(button);
         return button;
     }
     
     private static void openMenu() {
         // recheck for levels
         fillLevelList();
-        // show the card
+        // show the menuCard on containerPanel
         containerLayout.show(containerPanel, MENU_CARD_ID);
     }
-    
+    //opens Menu 
     static class MenuOpener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -223,6 +230,8 @@ public class Game{
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            //if actionPerformed equals to the respective ButtonAction,
+            //different methods are invoked.
             if(action == ButtonAction.Pause) {
                 board.togglePause();
             } else if(action == ButtonAction.Reset) {
@@ -231,6 +240,7 @@ public class Game{
                 openMenu();
             } else if(action == ButtonAction.Editor) {
                 containerLayout.show(containerPanel, EDITOR_CARD_ID);
+                //if selected level is not null, open else reset level
                 Level level = getSelectedLevel();
                 if(level != null) {
                     editorPanel.openLevel(level);
@@ -238,6 +248,8 @@ public class Game{
                     editorPanel.resetLevel();
                 }
             } else if(action == ButtonAction.Remove) {
+                //if selected level is not null, confirm dialog is shown
+                //if confirmation is yes, level is removed and levelList is 'refreshed'
                 Level level = getSelectedLevel();
                 if(level != null) {
                     int reply = JOptionPane.showConfirmDialog(containerPanel, 
@@ -249,6 +261,8 @@ public class Game{
                 }
             } else if(action == ButtonAction.Start) {
                 Level level = getSelectedLevel();
+                //if level is not null, gameCard in containerPanel is shown
+                //and selected level is loaded and repainted
                 if(level != null) {
                     containerLayout.show(containerPanel, GAME_CARD_ID);
                     board.grabFocus();
