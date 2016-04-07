@@ -49,4 +49,9 @@ public class Barricade extends Tile{
     public static Image getImage() {
         return image;
     }
+
+    @Override
+    public String saveToString() {
+        return "B "+keyCodeLabel;
+    }
 }

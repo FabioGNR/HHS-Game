@@ -111,6 +111,9 @@ public class EditorPanel extends JPanel {
         catch(NumberFormatException ex) {
             keyCode = 0;
         }
+        if(keyCode >= 10) {
+            keyCode = 9;
+        }
         return keyCode;
     }
     

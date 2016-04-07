@@ -60,4 +60,13 @@ public class BoardCoordinate implements Comparable{
         int otherValue = other.getY()*COLS+other.getX();
         return myValue-otherValue;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) {
+            return false;
+        }
+        BoardCoordinate other = (BoardCoordinate)o;
+        return other.getX() == x && other.getY() == y;
+    }
 }
