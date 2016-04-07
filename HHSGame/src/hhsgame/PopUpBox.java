@@ -13,7 +13,7 @@ public class PopUpBox {
     public PopUpBox(String text) {
         this.text = text;
     }
-    
+    //paint the popUpBox
     public void paint(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(TILE_WIDTH, TILE_HEIGHT*3, TILE_WIDTH*(COLS-2), TILE_HEIGHT*(ROWS-6));
@@ -22,7 +22,7 @@ public class PopUpBox {
         g.setColor(Color.GRAY);
         g.setFont(font);
         g.drawString(text, TILE_WIDTH*((COLS-2)/3), TILE_HEIGHT*((ROWS-2)/2));
-        g.setColor(Color.BLACK);
+//        g.setColor(Color.BLACK);
     }
     
 }

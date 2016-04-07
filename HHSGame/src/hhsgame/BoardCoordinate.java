@@ -45,14 +45,14 @@ public class BoardCoordinate implements Comparable{
         return new BoardCoordinate(x,y+1);
     }
     
-        
+    //returns position x and y on the board    
     public int getScreenX() {
         return TILE_WIDTH*x;
     }
     public int getScreenY() {
         return TILE_HEIGHT*y;
     }
-
+    //compares two objects to check if it's the same. if it's the same return value = 0 
     @Override
     public int compareTo(Object o) {
         int myValue = y*COLS+x;
@@ -60,7 +60,8 @@ public class BoardCoordinate implements Comparable{
         int otherValue = other.getY()*COLS+other.getX();
         return myValue-otherValue;
     }
-    
+    //if object is null return false
+    //if value x and y of object equals to this.x and this.y return true
     @Override
     public boolean equals(Object o) {
         if(o == null) {

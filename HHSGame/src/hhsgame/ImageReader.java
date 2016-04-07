@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
  */
 public class ImageReader {
     //getImage method tries to open, read and return the image file.
-    //if the file can't be opened or image can't be read, it returns null. 
+    //if the file can't be opened or image can't be read, it catches the error and return null. 
     public static Image getImage(String path)
     {
         File file;

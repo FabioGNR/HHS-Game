@@ -197,6 +197,7 @@ public class Game{
         return button;
     }
     
+    //buttonSetup formenuPanel
     private static JButton menuPanelButton(int x, int y, String text, ButtonAction action){
         JButton button = new JButton();
         button.setLocation(x, y);

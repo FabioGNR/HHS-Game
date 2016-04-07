@@ -7,12 +7,15 @@ public class TileBit {
     private boolean start = false;
     
     public TileBit(String bit) {
+        //Strings is changed to array of char
         char[] parts = bit.toCharArray();
+        //if parts length is greater than 0, parts[0] is type else 'E'
         if(parts.length > 0) {
             type = parts[0];
+            //if third element in char array is an int parse to int and store in keyCode
             if(isInt(parts[2])) {
                 keyCode = Integer.parseInt("" + parts[2]);
-            }
+            }//set start to true if parts[2] == 'C'
             start = (parts[2] == 'C');
         } else {
             type = 'E';
@@ -30,7 +33,7 @@ public class TileBit {
     public boolean getStart() {
         return start;
     }
-    
+    //try parsing a char to int, return true if it's an int else catch exception and return false
     private boolean isInt(char s) {
         try {
             Integer.parseInt("" + s);

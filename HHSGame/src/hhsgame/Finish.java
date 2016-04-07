@@ -7,15 +7,16 @@ import java.awt.Image;
 public class Finish extends Tile{
     private static final Image image = ImageReader.getImage("finish.png");
     
+    //inherit position from Tile class
     public Finish(BoardCoordinate pos) {
         super(pos);
     }
-    
+    //return value is, trueGameCharacter may pass
     @Override
     public boolean isPassable(GameCharacter character) {
         return true;
     }
-
+    //return if image is null otherwise draw image
     @Override
     public void paint(Graphics g) {
         if(image == null)
@@ -30,7 +31,7 @@ public class Finish extends Tile{
     {
         return true;
     }
-
+    
     public static Image getImage() {
         return image;
     }

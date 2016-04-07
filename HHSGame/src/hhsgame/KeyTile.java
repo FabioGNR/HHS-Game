@@ -9,11 +9,12 @@ public class KeyTile extends Tile {
     private static final Image image = ImageReader.getImage("keyTile.png");
     private final Key key;
     
+    //KeyTile inherit position from Tile class and has a Key
     public KeyTile(BoardCoordinate pos, Key key) {
         super(pos);
         this.key = key;
     }
-
+    //GameCharacter can pass
     @Override
     public boolean isPassable(GameCharacter character) {
         return true;
@@ -23,26 +24,29 @@ public class KeyTile extends Tile {
     public void paint(Graphics g) {
         if(image == null)
             return;  
+        //draw key image on a Tile
         int x = pos.getScreenX();
         int y = pos.getScreenY();
         g.drawImage(image, x, y, TILE_WIDTH, TILE_HEIGHT, null);
+        
+        //draw a keyLabel on it
         g.setColor(Color.WHITE);
         g.setFont(LABEL_FONT);
         int labelX = x + (TILE_WIDTH-50)/2;
         int labelY = y + (TILE_HEIGHT-20)/2;
         g.drawString(key.getKeyLabel(), labelX, labelY);
-        g.setColor(Color.BLACK);
+//        g.setColor(Color.BLACK);
     }
     
     public Key getKey() {
         return key;
     }
-
+    //KeyTile gets replaced by a EmptyTile
     @Override
     public Tile getReplacement() {
         return new EmptyTile(pos);
     }
-
+    //key is set to character on enter
     @Override
     public void onCharacterEnter(GameCharacter character) {
         character.setKey(key);
