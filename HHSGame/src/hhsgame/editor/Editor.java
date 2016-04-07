@@ -88,18 +88,20 @@ public class Editor extends JComponent{
         }
         boolean hasFinish = false;
         String[][] levelString = new String[ROWS][COLS];
-        // for every entry in the map we check what kind of tile it is
-        // and put an appropriate entry in to the String array
+        // for every entry in the map we put the appropriate entry in to the String array
         for(BoardCoordinate pos : levelLayout.keySet()) {
             Tile currTile = levelLayout.get(pos);
             levelString[pos.getY()][pos.getX()] = currTile.saveToString();
+            // if the current tile is a finish, we register that we have one
             if(currTile.isFinish()) {
                 hasFinish = true;
             }
         }
+        // if we don't have a finish we can't save
         if(!hasFinish) {
             throw new Exception("Add a finish before saving your level.");
         }
+        // we overwrite the correct array position with the String that indicates the start
         levelString[characterStart.getY()][characterStart.getX()] = "E C";
         LevelWriter.writeLevel(filePath, levelString);
     }
@@ -115,12 +117,17 @@ public class Editor extends JComponent{
             int BoardX = e.getX()/TILE_WIDTH;
             int BoardY = e.getY()/TILE_HEIGHT;
             
+            // only take action if we are within the gameboard
             if(BoardX < COLS && BoardY < ROWS) {
+                // we set the selection to the place we clicked
                 selected = new BoardCoordinate(BoardX, BoardY);
+                // we put a tile of the appropriate type in to the appropriate position
                 Tile currTile = currTileType.createInstance(selected, keyCode);
                 levelLayout.put(selected, currTile);
+                // if the selected tile type is the chracter start we set the startposition
                 if(currTileType == TileType.Start) {
                     characterStart = selected;
+                // if the selected tile is not a start tile we reset the start
                 } else if(selected.equals(characterStart)) {
                     characterStart = null;
                 }
