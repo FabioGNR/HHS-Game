@@ -159,6 +159,9 @@ public class EditorPanel extends JPanel {
                         showMessageDialog(ex.getMessage());
                     }
                 }
+                else {
+                    showMessageDialog("Please enter a name for the level.");
+                }
             }
             else if(action == ButtonAction.Reset) {
                 resetLevel();

@@ -34,7 +34,6 @@ public class Level {
     
     private void buildLevel(){
         levelLayout = new TreeMap<>();
-        outerloop:
         for(int y = 0; y < tileBits.length; y++){
             for(int x = 0; x < tileBits[y].length; x++){
                 String currentBit = tileBits[y][x];

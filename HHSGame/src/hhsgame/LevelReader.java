@@ -56,7 +56,7 @@ public LevelReader(String fileName) {
                     if(reader == null) { // file could not be opened
                         continue;
                     }
-                    for(int i = 0; i < 10; i++) {
+                    for(int i = 0; i < ROWS; i++) {
                         line = reader.readLine();
                         lines[i] = line.split(",");
                     }

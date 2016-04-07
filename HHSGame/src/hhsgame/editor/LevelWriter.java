@@ -67,7 +67,7 @@ public class LevelWriter {
          try {
             try (FileWriter writer = new FileWriter(LEVEL_LIST_FILE)) {
                 for(Level level : list) {
-                    writer.append(level.getFilename() + "\r\n");
+                    writer.append(level.getFilename() + System.lineSeparator());
                 }
             }
             File levelFile = new File(levelToRemove.getFilename());
@@ -76,7 +76,6 @@ public class LevelWriter {
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }    
-        
+        }            
     }
 }
