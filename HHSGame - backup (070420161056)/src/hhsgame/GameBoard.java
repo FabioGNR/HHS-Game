@@ -125,8 +125,4 @@ public class GameBoard extends JComponent {
         return character;
     }
 
-    public Map<BoardCoordinate, Tile> getLevelLayout() {
-        return levelLayout;
-    }
-
 }

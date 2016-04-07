@@ -140,15 +140,15 @@ public class Game{
     
     //first remove all items in comboBox then read levels in file and levels stored in List<Level>
     //for each element(level) in levels, a name is returned and stored in levelName
-    //the if statement over contains removes the extension to show in the level list
-    //if there are no levels (i.e. itemCount in comboBox is 0) disable buttons, else enable and set index to 0
+    //dunno what contains does???
+    //if the itemCount in comboBox is 0 disable buttons else enable and set index to 0
     private static void fillLevelList() {
         levelBox.removeAllItems();
         reader.readLevels();
         List<Level> levels = reader.getLevels();    
         for (Level level : levels) {
             String levelName = level.getFilename();
-            if(levelName.contains(".lvl")) {
+            if(levelName.contains(".")) {
                 levelName = levelName.replace(".lvl", "");
             }
             levelBox.addItem(levelName);

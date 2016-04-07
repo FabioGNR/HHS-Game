@@ -36,20 +36,34 @@ public class Level {
         levelLayout = new TreeMap<>();
         for(int y = 0; y < tileBits.length; y++){
             for(int x = 0; x < tileBits[y].length; x++){
-                TileBit currentBit = new TileBit(tileBits[y][x]);
+                String currentBit = tileBits[y][x];
                 Tile currentTile = new EmptyTile(new BoardCoordinate(x,y));
-                if(currentBit.getStart()) {
-                    start = new BoardCoordinate(x, y);
-                } else if(currentBit.getType() == 'K') {
-                    currentTile = new KeyTile(new BoardCoordinate(x, y), new Key(currentBit.getKeyCode())); 
-                } else if(currentBit.getType() == 'B'){
-                    currentTile = new Barricade(new BoardCoordinate(x,y), currentBit.getKeyCode());
-                } else if(currentBit.getType() == 'W'){
-                    currentTile = new Wall(new BoardCoordinate(x,y));
-                } else if(currentBit.getType() == 'F'){
-                    currentTile = new Finish(new BoardCoordinate(x,y));
-                } else if(currentBit.getType() != 'E') {
-                    System.out.println("Attempted Tile type not recognized: " + currentBit.getType());
+                String[] parts;
+                parts = currentBit.split(" +");
+                if(parts[0].equals("E")) {
+                    if(parts.length > 1) {
+                        if(parts[1].equals("C")) {
+                            start = new BoardCoordinate(x, y);
+                        }
+                    }
+                } else if(parts[0].equals("K")) {
+                    if(parts.length == 2 && isInt(parts[1])){
+                        currentTile = new KeyTile(new BoardCoordinate(x, y), new Key(Integer.parseInt(parts[1])));
+                    } 
+                } else if(parts[0].equals("B")){
+                    if(parts.length == 2 && isInt(parts[1])){
+                        currentTile = new Barricade(new BoardCoordinate(x,y), Integer.parseInt(parts[1]));
+                    }
+                }else if(parts[0].equals("W")){
+                    if(parts.length == 1){
+                        currentTile = new Wall(new BoardCoordinate(x,y));
+                    }
+                } else if(parts[0].equals("F")){
+                    if(parts.length == 1){
+                        currentTile = new Finish(new BoardCoordinate(x,y));
+                    }
+                } else {
+                    System.out.println("parts[0]: " + parts[0] + ".");
                     debugPrint(x, y);
                 }
                 levelLayout.put(currentTile.getPos(), currentTile);
@@ -69,6 +83,15 @@ public class Level {
             System.out.print(tileBits[yPos][x]);
         }
         System.out.println("");
+    }
+    
+    private boolean isInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
